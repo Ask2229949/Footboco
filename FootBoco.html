@@ -2,7 +2,7 @@
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, viewport-fit=cover">
 <title>سوق الانتقالات</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Anton&display=swap" rel="stylesheet">
@@ -38,12 +38,17 @@
   }
   .display{font-family:'Anton','Tajawal',sans-serif; letter-spacing:0.5px;}
   .wrap{max-width:960px;margin:0 auto;padding:16px 14px 60px;}
-  .brand{display:flex;align-items:center;justify-content:center;gap:10px;padding:20px 0 14px;}
+  .brand{display:flex;align-items:center;justify-content:center;gap:10px;padding:22px 0 16px;}
   .brand .ball{font-size:24px;filter:drop-shadow(0 0 8px rgba(232,185,77,0.5));}
-  .brand h1{font-size:21px;font-weight:900;letter-spacing:0.5px;margin:0;color:var(--white);}
-  .brand .tag{font-size:10.5px;color:var(--night);font-weight:800;background:linear-gradient(180deg,var(--gold-hi),var(--gold));padding:3px 9px;border-radius:20px;}
+  .brand h1{font-size:21px;font-weight:900;letter-spacing:0.5px;margin:0;
+    background:linear-gradient(180deg,var(--white),#c9dccf);-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .brand .tag{font-size:10.5px;color:var(--night);font-weight:800;background:linear-gradient(180deg,var(--gold-hi),var(--gold));padding:3px 9px;border-radius:20px;box-shadow:0 3px 10px rgba(232,185,77,0.25);}
 
-  .card{background:linear-gradient(180deg, var(--panel-hi), var(--panel));border:1px solid var(--line);border-radius:20px;padding:22px;box-shadow:0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);}
+  .card{background:linear-gradient(180deg, var(--panel-hi), var(--panel));border:1px solid var(--line);border-radius:20px;padding:22px;
+    box-shadow:0 16px 40px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.04);
+    animation:cardIn .32s cubic-bezier(.2,.8,.2,1);}
+  @keyframes cardIn{from{opacity:0;transform:translateY(10px) scale(0.99);}to{opacity:1;transform:translateY(0) scale(1);}}
+  @media (prefers-reduced-motion: reduce){ .card{animation:none;} }
 
   h2{font-size:18px;font-weight:800;margin:0 0 4px;}
   p.sub{color:var(--muted);font-size:13.5px;margin:0 0 14px;line-height:1.6;}
@@ -70,6 +75,7 @@
   }
   .btn:active{transform:scale(0.98);}
   .btn-gold{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#241c00;box-shadow:0 6px 18px rgba(232,185,77,0.25);}
+  .btn-gold:not(:disabled):hover{filter:brightness(1.05);box-shadow:0 8px 22px rgba(232,185,77,0.35);}
   .btn-gold:disabled{filter:grayscale(0.6);opacity:0.4;cursor:not-allowed;box-shadow:none;}
   .btn-ghost{background:rgba(255,255,255,0.06);color:var(--white);border:1px solid var(--line);}
   .err{color:#ff8a8a;font-size:13px;margin-top:6px;font-weight:700;}
@@ -217,6 +223,89 @@
   .pchip .p{color:var(--gold);font-weight:900;margin-right:4px;}
 
   .footer-note{text-align:center;color:#4d6657;font-size:11px;margin-top:22px;line-height:1.7;}
+
+  /* ===== SOCIAL LAYER: mic + chat ===== */
+  .fab-stack{position:fixed;left:16px;bottom:18px;display:flex;flex-direction:column;gap:10px;z-index:60;}
+  .fab{position:relative;width:52px;height:52px;border-radius:50%;border:none;cursor:pointer;
+    font-size:21px;display:flex;align-items:center;justify-content:center;
+    background:linear-gradient(180deg, var(--panel-hi), var(--panel));border:1px solid var(--line);
+    color:var(--white);box-shadow:0 8px 22px rgba(0,0,0,0.45);transition:transform .12s ease, filter .12s ease;}
+  .fab:active{transform:scale(0.94);}
+  .fab-mic.on{background:linear-gradient(180deg,#3fd18a,#1f9b5e);border-color:#1f9b5e;
+    box-shadow:0 0 0 4px rgba(63,209,138,0.18), 0 8px 22px rgba(0,0,0,0.45);animation:micPulse 1.8s ease-in-out infinite;}
+  .fab-mic.busy{opacity:0.6;}
+  @keyframes micPulse{0%,100%{box-shadow:0 0 0 4px rgba(63,209,138,0.18), 0 8px 22px rgba(0,0,0,0.45);}50%{box-shadow:0 0 0 8px rgba(63,209,138,0.1), 0 8px 22px rgba(0,0,0,0.45);}}
+  @media (prefers-reduced-motion: reduce){ .fab-mic.on{animation:none;} }
+  .fab-badge{position:absolute;top:-4px;right:-4px;background:var(--crimson);color:white;font-size:10px;
+    font-weight:900;border-radius:20px;min-width:18px;height:18px;padding:0 4px;display:flex;align-items:center;justify-content:center;
+    box-shadow:0 0 0 2px var(--night);}
+  .mic-peers{position:fixed;left:16px;bottom:78px;z-index:59;display:flex;flex-direction:column;gap:4px;align-items:flex-start;
+    max-width:150px;pointer-events:none;}
+  .mic-peer-chip{pointer-events:none;font-size:10.5px;font-weight:800;background:rgba(63,209,138,0.16);color:#9df0c4;
+    border:1px solid rgba(63,209,138,0.4);border-radius:20px;padding:3px 9px 3px 6px;display:flex;align-items:center;gap:5px;
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:fadeIn .2s ease;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+  .chat-panel{position:fixed;right:12px;left:12px;bottom:0;max-width:420px;margin:0 auto;
+    background:linear-gradient(180deg, var(--panel-hi), var(--panel));border:1px solid var(--line);
+    border-radius:18px 18px 0 0;box-shadow:0 -10px 40px rgba(0,0,0,0.5);z-index:61;
+    display:flex;flex-direction:column;height:0;overflow:hidden;opacity:0;pointer-events:none;
+    transition:height .22s ease, opacity .18s ease;}
+  .chat-panel.open{height:min(58vh, 440px);opacity:1;pointer-events:auto;}
+  .chat-handle{position:absolute;top:7px;left:50%;transform:translateX(-50%);width:36px;height:4px;
+    border-radius:3px;background:rgba(255,255,255,0.18);}
+  .chat-head{position:relative;display:flex;align-items:center;justify-content:space-between;padding:16px 14px 12px;
+    font-weight:900;font-size:14px;border-bottom:1px solid var(--line);flex-shrink:0;}
+  .chat-close{background:rgba(255,255,255,0.08);border:none;color:var(--white);width:26px;height:26px;
+    border-radius:50%;cursor:pointer;font-size:13px;}
+  .chat-messages{flex:1;overflow-y:auto;padding:10px 12px;display:flex;flex-direction:column;gap:7px;}
+  .chat-empty{color:var(--muted);font-size:12.5px;text-align:center;padding:20px 0;}
+  .chat-msg{max-width:82%;background:rgba(255,255,255,0.05);border-radius:12px;padding:6px 10px;font-size:13px;align-self:flex-start;}
+  .chat-msg.me{align-self:flex-end;background:rgba(232,185,77,0.16);border:1px solid rgba(232,185,77,0.25);}
+  .chat-msg .cm-name{display:block;font-size:10.5px;font-weight:900;color:var(--gold);margin-bottom:2px;}
+  .chat-msg.me .cm-name{color:var(--gold-hi);}
+  .chat-msg .cm-text{color:var(--white);word-break:break-word;line-height:1.5;}
+  .chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--line);flex-shrink:0;}
+  .chat-input-row input{flex:1;padding:10px 12px;border-radius:20px;border:1px solid var(--line);
+    background:rgba(0,0,0,0.22);color:var(--white);font-family:inherit;font-size:14px;outline:none;}
+  .chat-input-row input:focus{border-color:var(--gold);}
+  .chat-send{width:40px;height:40px;border-radius:50%;border:none;cursor:pointer;flex-shrink:0;
+    background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#241c00;font-size:15px;font-weight:900;}
+  .chat-send:active{transform:scale(0.92);}
+
+  /* ===== EXIT CONTROL ===== */
+  .exit-fab{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:70;
+    display:flex;align-items:center;gap:6px;padding:9px 14px 9px 11px;border-radius:30px;border:1px solid rgba(225,75,94,0.35);
+    background:linear-gradient(180deg, rgba(40,14,17,0.92), rgba(20,7,9,0.92));backdrop-filter:blur(10px);
+    color:#ffb3ba;font-family:inherit;font-weight:800;font-size:12.5px;cursor:pointer;
+    box-shadow:0 8px 22px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.05);transition:transform .12s ease, filter .12s ease;}
+  .exit-fab:active{transform:scale(0.95);}
+  .exit-fab .ic{font-size:15px;filter:drop-shadow(0 0 4px rgba(225,75,94,0.5));}
+  .exit-fab .lbl{white-space:nowrap;}
+  @media (max-width:420px){ .exit-fab .lbl{display:none;} .exit-fab{padding:10px;border-radius:50%;} }
+
+  .confirm-modal-backdrop{position:fixed;inset:0;background:rgba(3,8,5,0.78);backdrop-filter:blur(3px);z-index:80;
+    display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .15s ease;}
+  .confirm-modal{width:100%;max-width:340px;background:linear-gradient(180deg, var(--panel-hi), var(--panel));
+    border:1px solid rgba(225,75,94,0.3);border-radius:20px;padding:22px 20px;text-align:center;
+    box-shadow:0 20px 60px rgba(0,0,0,0.55);}
+  .confirm-modal .cm-icon{font-size:30px;margin-bottom:8px;}
+  .confirm-modal .cm-title{font-weight:900;font-size:16.5px;margin-bottom:6px;color:var(--white);}
+  .confirm-modal .cm-sub{color:var(--muted);font-size:12.5px;line-height:1.7;margin-bottom:18px;}
+  .confirm-modal .cm-actions{display:flex;gap:10px;}
+  .confirm-modal .cm-actions .btn{flex:1;}
+  .btn-danger{background:linear-gradient(180deg,#ff8a95,var(--crimson));color:#2a0a0c;box-shadow:0 6px 18px rgba(225,75,94,0.3);}
+
+  /* ===== mobile fine-tuning for chat + docks on small screens ===== */
+  @media (max-width:480px){
+    .chat-panel{right:0;left:0;max-width:100%;border-radius:20px 20px 0 0;}
+    .chat-panel.open{height:min(72dvh, 620px);}
+    .chat-input-row{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px));}
+    .fab-stack{left:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));gap:9px;}
+    .fab{width:50px;height:50px;font-size:19px;}
+    .mic-peers{bottom:calc(80px + env(safe-area-inset-bottom,0px));}
+    .wrap{padding:14px 12px 60px;}
+  }
 </style>
 </head>
 <body>
@@ -225,6 +314,7 @@
   <div id="app"></div>
   <div class="footer-note" id="footerNote"></div>
 </div>
+<div id="socialLayer"></div>
 
 <script>
 /* ============ SUPABASE ============ */
@@ -246,16 +336,63 @@ async function setRoom(code, state){
     if(error) console.error('supabase upsert failed', error);
   }catch(e){ console.error('storage set failed', e); }
 }
+
+/* ============ ATOMIC ROOM UPDATES (anti-corruption / anti-race) ============
+   كل الأكشنز الحساسة (المزايدة، بدء المزاد، تحديد الدكة/الأساسي، قفل الكارت)
+   بتعدي من هنا: بنقرا أحدث نسخة من الغرفة، ونكتب بس لو حد تاني ما كتبش فوقها
+   من ساعة ما قرينا (compare-and-swap على updated_at). لو حصل تعارض (اتنين
+   ضغطوا في نفس اللحظة، أو حصل ريفريش/قطع نت وسط العملية) بنعيد المحاولة
+   بدل ما نخرب الحالة أو نضيع فعل حد. ده بيمنع التخريب الناتج عن كراكات/تكرار
+   الضغط أو فتح أكتر من تاب لنفس اللاعب. */
+async function withRoomLock(code, mutator, maxRetries=8){
+  for(let attempt=0; attempt<maxRetries; attempt++){
+    let row;
+    try{
+      const {data, error} = await sb.from('rooms').select('state, updated_at').eq('code', code).maybeSingle();
+      if(error || !data) return {ok:false, state:null};
+      row = data;
+    }catch(e){ return {ok:false, state:null}; }
+
+    const state = row.state;
+    let mutRes;
+    try{ mutRes = await mutator(state); }
+    catch(e){ console.error('mutator failed', e); return {ok:false, state}; }
+    if(mutRes && mutRes.abort) return {ok:false, state, reason:mutRes.reason};
+
+    const nowIso = new Date().toISOString();
+    try{
+      const {data:updated, error:updErr} = await sb.from('rooms')
+        .update({state, updated_at: nowIso})
+        .eq('code', code).eq('updated_at', row.updated_at)
+        .select('code');
+      if(updErr){ console.error('cas update failed', updErr); return {ok:false, state}; }
+      if(updated && updated.length>0) return {ok:true, state};
+    }catch(e){ console.error('cas update threw', e); return {ok:false, state}; }
+    // في تعارض (state اتغيرت من حد تاني وسط العملية) — استنى شوية وحاول تاني
+    await new Promise(r=>setTimeout(r, 90 + Math.random()*160));
+  }
+  return {ok:false, state:null, reason:'max-retries'};
+}
 function subscribeRoom(code){
-  if(realtimeChannel){ sb.removeChannel(realtimeChannel); realtimeChannel = null; }
-  realtimeChannel = sb.channel('room-'+code)
+  if(realtimeChannel){ try{ realtimeChannel.untrack(); }catch(e){} sb.removeChannel(realtimeChannel); realtimeChannel = null; }
+  cleanupAllPeers();
+  chatMessages = []; chatUnread = 0;
+  realtimeChannel = sb.channel('room-'+code, {config:{presence:{key: myName}, broadcast:{self:false}}})
     .on('postgres_changes', {event:'*', schema:'public', table:'rooms', filter:'code=eq.'+code}, (payload)=>{
       if(payload.new && payload.new.state){
         localState = payload.new.state;
         render();
       }
     })
-    .subscribe();
+    .on('broadcast', {event:'chat'}, ({payload})=>{ onChatMessage(payload); })
+    .on('broadcast', {event:'rtc-signal'}, ({payload})=>{ if(payload && payload.to===myName) handleSignal(payload.from, payload.data); })
+    .on('presence', {event:'sync'}, ()=>{ onPresenceSync(); })
+    .subscribe((status)=>{
+      if(status==='SUBSCRIBED'){
+        realtimeChannel.track({name: myName, micOn, ts: Date.now()});
+      }
+    });
+  renderSocialLayer();
 }
 
 /* ============ LIVE PLAYER POOL (fetched at runtime, never hardcoded) ============
@@ -422,7 +559,7 @@ const POS_LABEL = {GK:"حارس", DF:"مدافع", MF:"وسط", FW:"مهاجم"}
 const POS_MIN = {GK:2, DF:5, MF:5, FW:3};
 const POS_MAX = {GK:3, DF:8, MF:8, FW:6};
 const SQUAD_MIN_TOTAL = 15, SQUAD_MAX_TOTAL = 18;
-const START_BUDGET = 1000; // 1000م = مليار يورو
+const START_BUDGET = 10000; // 10000م = 10 مليار يورو
 const BID_SECONDS = 30;
 const MAX_CARDS = 80;
 // شكل تشكيلة أساسية 4-3-3 (11 لاعب) — الباقي بيقعدوا على الدكة
@@ -468,6 +605,273 @@ let startProgressText = "";
 const params = new URLSearchParams(location.search);
 const urlRoom = params.get('room');
 
+/* ============ SOCIAL LAYER: مايك جماعي (WebRTC) + شات لايف ============
+   بيستخدموا نفس قناة الـ Realtime بتاعة الغرفة عن طريق broadcast (للشات
+   وإشارات الاتصال) وpresence (لمعرفة مين موجود دلوقتي عشان نعمل اتصال معاه).
+   مفيش سيرفر إشارة خارجي — القناة نفسها بتوصل العروض/الردود/الـICE.
+   الصوت بيتوصل مباشر peer-to-peer (WebRTC mesh)، مناسب لعدد صغير زي 2-4 لاعبين. */
+const ICE_SERVERS = [{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}];
+const peerConnections = {};
+const peerMeta = {};
+let presenceMicMap = {};
+let localStream = null;
+let micOn = false;
+let micBusy = false;
+let chatMessages = [];
+let chatOpen = false;
+let chatUnread = 0;
+let chatDraft = "";
+let showExitConfirm = false;
+const socialLayerEl = document.getElementById('socialLayer');
+
+function cssSafe(name){ return (name||'').replace(/[^a-zA-Z0-9\u0600-\u06FF]/g,'_'); }
+
+function sendSignal(to, data){
+  if(!realtimeChannel) return;
+  realtimeChannel.send({type:'broadcast', event:'rtc-signal', payload:{from:myName, to, data}});
+}
+
+/* بعض المتصفحات (خصوصًا على الموبايل) بتمنع تشغيل صوت تلقائي لو المستخدم لسه
+   ما تفاعلش مع الصفحة بلمسة/كليك مباشرة — فبنحاول نشغّل الصوت فورًا، ولو
+   اتمنع بنسجله عشان نعيد المحاولة أول ما المستخدم يلمس/يدوس على أي حاجة. */
+const pendingAudioEls = new Set();
+function tryPlayAudio(el){
+  const p = el.play();
+  if(p && typeof p.catch==='function'){
+    p.then(()=>{ pendingAudioEls.delete(el); })
+     .catch(()=>{ pendingAudioEls.add(el); });
+  }
+}
+function unlockPendingAudio(){
+  if(!pendingAudioEls.size) return;
+  pendingAudioEls.forEach(el=>{ if(document.body.contains(el)) tryPlayAudio(el); else pendingAudioEls.delete(el); });
+}
+['click','touchstart','keydown'].forEach(ev=>document.addEventListener(ev, unlockPendingAudio, {passive:true}));
+
+function attachRemoteAudio(peerName, stream){
+  const box = document.getElementById('remoteAudios');
+  if(!box) return;
+  let el = document.getElementById('audio-'+cssSafe(peerName));
+  if(!el){
+    el = document.createElement('audio');
+    el.id = 'audio-'+cssSafe(peerName);
+    el.autoplay = true; el.playsInline = true; el.muted = false; el.volume = 1;
+    box.appendChild(el);
+  }
+  if(el.srcObject !== stream){
+    el.srcObject = stream;
+    tryPlayAudio(el);
+  }
+}
+
+function ensurePeerConnection(peerName){
+  if(peerConnections[peerName]) return peerConnections[peerName];
+  const polite = myName > peerName; // ترتيب ثابت بالاسم يحدد مين "المهذب" وقت تعارض عرضين في نفس اللحظة
+  const pc = new RTCPeerConnection({iceServers: ICE_SERVERS});
+  peerConnections[peerName] = pc;
+  peerMeta[peerName] = {polite, makingOffer:false, ignoreOffer:false};
+
+  if(localStream){ pc.addTrack(localStream.getAudioTracks()[0], localStream); }
+  else { pc.addTransceiver('audio', {direction:'recvonly'}); }
+
+  pc.onicecandidate = (e)=>{ if(e.candidate) sendSignal(peerName, {type:'ice', candidate:e.candidate.toJSON()}); };
+  pc.ontrack = (e)=>{ attachRemoteAudio(peerName, e.streams[0]); };
+  pc.onnegotiationneeded = async ()=>{
+    const meta = peerMeta[peerName];
+    if(!meta) return;
+    try{
+      meta.makingOffer = true;
+      const offer = await pc.createOffer();
+      if(pc.signalingState!=='stable') return;
+      await pc.setLocalDescription(offer);
+      sendSignal(peerName, {type:'offer', description: pc.localDescription});
+    }catch(e){ console.error('negotiation failed', e); }
+    finally{ meta.makingOffer = false; }
+  };
+  return pc;
+}
+
+async function handleSignal(from, data){
+  if(!data || !from) return;
+  const pc = ensurePeerConnection(from);
+  const meta = peerMeta[from];
+  try{
+    if(data.type==='offer'){
+      const offerCollision = meta.makingOffer || pc.signalingState!=='stable';
+      meta.ignoreOffer = !meta.polite && offerCollision;
+      if(meta.ignoreOffer) return; // إحنا "المش-مهذبين" وبنكسب التعارض، بنتجاهل عرضه ونستنى بتاعنا
+      await pc.setRemoteDescription(new RTCSessionDescription(data.description));
+      const answer = await pc.createAnswer();
+      await pc.setLocalDescription(answer);
+      sendSignal(from, {type:'answer', description: pc.localDescription});
+    } else if(data.type==='answer'){
+      if(pc.signalingState==='have-local-offer') await pc.setRemoteDescription(new RTCSessionDescription(data.description));
+    } else if(data.type==='ice'){
+      try{ await pc.addIceCandidate(data.candidate); }
+      catch(e){ if(!meta.ignoreOffer) console.error('ice add failed', e); }
+    }
+  }catch(e){ console.error('signal handling error', e); }
+}
+
+function removePeer(peerName){
+  const pc = peerConnections[peerName];
+  if(pc){ try{ pc.close(); }catch(e){} delete peerConnections[peerName]; }
+  delete peerMeta[peerName];
+  delete presenceMicMap[peerName];
+  const el = document.getElementById('audio-'+cssSafe(peerName));
+  if(el) el.remove();
+}
+function cleanupAllPeers(){ Object.keys(peerConnections).forEach(removePeer); }
+
+function onPresenceSync(){
+  if(!realtimeChannel) return;
+  const state = realtimeChannel.presenceState();
+  const now = new Set();
+  const nextMicMap = {};
+  Object.entries(state).forEach(([key, metas])=>{
+    if(key===myName) return;
+    now.add(key);
+    nextMicMap[key] = !!((metas && metas[0]) || {}).micOn;
+  });
+  presenceMicMap = nextMicMap;
+  Object.keys(peerConnections).forEach(p=>{ if(!now.has(p)) removePeer(p); });
+  now.forEach(p=>{ if(!peerConnections[p]) ensurePeerConnection(p); });
+  renderSocialLayer();
+}
+
+function onChatMessage(payload){
+  if(!payload || !payload.text) return;
+  chatMessages.push(payload);
+  if(chatMessages.length>60) chatMessages = chatMessages.slice(-60);
+  if(!chatOpen) chatUnread++;
+  renderSocialLayer();
+}
+
+function sendChat(text){
+  text = (text||'').trim();
+  if(!text || !realtimeChannel) return;
+  const payload = {name: myName, text: text.slice(0,300), ts: Date.now()};
+  chatMessages.push(payload);
+  if(chatMessages.length>60) chatMessages = chatMessages.slice(-60);
+  realtimeChannel.send({type:'broadcast', event:'chat', payload});
+  renderSocialLayer();
+}
+
+async function toggleMic(){
+  if(micBusy) return;
+  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
+    alert('المتصفح ده مش بيدعم المايك. جرب متصفح تاني أو حدّث المتصفح الحالي.');
+    return;
+  }
+  micBusy = true; renderSocialLayer();
+  try{
+    if(!localStream){
+      localStream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true, autoGainControl:true}});
+      micOn = true;
+      const track = localStream.getAudioTracks()[0];
+      track.enabled = true;
+      Object.values(peerConnections).forEach(pc=>{
+        const tr = pc.getTransceivers().find(t=>t.receiver && t.receiver.track && t.receiver.track.kind==='audio' && (!t.sender || !t.sender.track));
+        if(tr){ tr.sender.replaceTrack(track); if(tr.direction!=='sendrecv') tr.direction='sendrecv'; }
+        else { pc.addTrack(track, localStream); }
+      });
+      // نحاول نشغّل أي صوت وصل قبل كده ومنعه المتصفح، دلوقتي إن المستخدم دَاس على زرار (لمسة/كليك)
+      unlockPendingAudio();
+    } else {
+      micOn = !micOn;
+      localStream.getAudioTracks().forEach(t=>{ t.enabled = micOn; });
+    }
+    if(realtimeChannel) realtimeChannel.track({name:myName, micOn, ts:Date.now()});
+  }catch(e){
+    console.error('mic error', e);
+    let msg = 'مقدرناش نوصل للمايك. تأكد إنك سامح للموقع بصلاحية استخدام المايكروفون من إعدادات المتصفح.';
+    if(e && e.name==='NotFoundError') msg = 'مفيش مايك متوصل بالجهاز ده. وصّل مايك أو استخدم جهاز فيه مايك.';
+    else if(e && e.name==='NotAllowedError') msg = 'المايك متمنوع. من إعدادات المتصفح، سمح للموقع بصلاحية المايكروفون وجرب تاني.';
+    else if(e && e.name==='NotReadableError') msg = 'مايك الجهاز مستخدم في تطبيق تاني دلوقتي. قفل أي تطبيق تاني بيستخدم المايك وجرب تاني.';
+    alert(msg);
+  }
+  micBusy = false; renderSocialLayer();
+}
+
+/* ===== خروج من الغرفة ===== */
+function requestExit(){ showExitConfirm = true; renderSocialLayer(); }
+function cancelExit(){ showExitConfirm = false; renderSocialLayer(); }
+function confirmExit(){
+  try{ cleanupAllPeers(); }catch(e){}
+  try{ if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream = null; } }catch(e){}
+  try{ if(realtimeChannel){ realtimeChannel.untrack(); sb.removeChannel(realtimeChannel); realtimeChannel = null; } }catch(e){}
+  if(pollTimer) clearInterval(pollTimer);
+  if(tickTimer) clearInterval(tickTimer);
+  location.href = location.pathname;
+}
+
+function renderSocialLayer(){
+  if(!socialLayerEl) return;
+  if(!roomCode){ socialLayerEl.innerHTML = ''; return; }
+  const speakingPeers = Object.entries(presenceMicMap).filter(([,on])=>on).map(([n])=>n);
+  socialLayerEl.innerHTML = `
+    <button class="exit-fab" id="exitFab" title="خروج"><span class="ic">🚪</span><span class="lbl">خروج</span></button>
+    ${speakingPeers.length ? `<div class="mic-peers">${speakingPeers.map(n=>`<div class="mic-peer-chip">🎤 ${esc(n)}</div>`).join('')}</div>` : ''}
+    <div class="fab-stack">
+      <button class="fab fab-mic ${micOn?'on':''} ${micBusy?'busy':''}" id="micFab" title="المايك">${micOn?'🎤':'🔇'}</button>
+      <button class="fab fab-chat" id="chatFab" title="الشات">💬${chatUnread>0?`<span class="fab-badge">${chatUnread>9?'9+':chatUnread}</span>`:''}</button>
+    </div>
+    <div class="chat-panel ${chatOpen?'open':''}" id="chatPanel">
+      <div class="chat-head"><div class="chat-handle"></div><span>💬 شات الغرفة</span><button class="chat-close" id="chatCloseBtn">✕</button></div>
+      <div class="chat-messages" id="chatMessagesBox">
+        ${chatMessages.length? chatMessages.map(m=>`<div class="chat-msg ${m.name===myName?'me':''}"><span class="cm-name">${esc(m.name)}</span><span class="cm-text">${esc(m.text)}</span></div>`).join('') : `<div class="chat-empty">اكتب أول رسالة في الغرفة 👋</div>`}
+      </div>
+      <div class="chat-input-row">
+        <input type="text" id="chatInput" placeholder="اكتب رسالة..." maxlength="300">
+        <button class="chat-send" id="chatSendBtn">➤</button>
+      </div>
+    </div>
+    <div id="remoteAudios" style="display:none;"></div>
+    ${showExitConfirm ? `
+    <div class="confirm-modal-backdrop" id="exitBackdrop">
+      <div class="confirm-modal">
+        <div class="cm-icon">🚪</div>
+        <div class="cm-title">تأكيد الخروج</div>
+        <div class="cm-sub">هتخرج من الغرفة دلوقتي. تقدر تدخل تاني بنفس الكود لو الغرفة لسه شغالة.</div>
+        <div class="cm-actions">
+          <button class="btn btn-ghost" id="exitCancelBtn">لأ، كمّل</button>
+          <button class="btn btn-danger" id="exitConfirmBtn">أيوه، خروج</button>
+        </div>
+      </div>
+    </div>` : ''}
+  `;
+  document.getElementById('micFab').onclick = toggleMic;
+  document.getElementById('exitFab').onclick = requestExit;
+  const chatFab = document.getElementById('chatFab');
+  chatFab.onclick = ()=>{ chatOpen = !chatOpen; if(chatOpen) chatUnread = 0; renderSocialLayer(); };
+  document.getElementById('chatCloseBtn').onclick = ()=>{ chatOpen=false; renderSocialLayer(); };
+  if(showExitConfirm){
+    document.getElementById('exitCancelBtn').onclick = cancelExit;
+    document.getElementById('exitConfirmBtn').onclick = confirmExit;
+    document.getElementById('exitBackdrop').onclick = (e)=>{ if(e.target.id==='exitBackdrop') cancelExit(); };
+  }
+  const input = document.getElementById('chatInput');
+  const doSend = ()=>{
+    const v = input.value;
+    sendChat(v);
+    chatDraft = "";
+  };
+  document.getElementById('chatSendBtn').onclick = doSend;
+  input.value = chatDraft;
+  input.oninput = ()=>{ chatDraft = input.value; };
+  input.onkeydown = (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSend(); } };
+  if(chatOpen){
+    input.focus();
+    const box = document.getElementById('chatMessagesBox');
+    if(box) box.scrollTop = box.scrollHeight;
+  }
+}
+
+window.addEventListener('beforeunload', ()=>{
+  cleanupAllPeers();
+  if(realtimeChannel){ try{ realtimeChannel.untrack(); }catch(e){} }
+});
+
 function pushLog(state, text){
   state.log = state.log || [];
   state.log.unshift(text);
@@ -497,17 +901,27 @@ async function createRoom(name){
 
 async function joinRoom(code, name){
   joinError=""; render();
-  const state = await getRoom(code);
-  if(!state){ joinError="مفيش غرفة بالكود ده."; render(); return; }
-  if(!state.players[name]){
-    if(state.phase!=='lobby'){ joinError="المزاد بدأ بالفعل، مينفعش تنضم دلوقتي."; render(); return; }
-    if(state.playersOrder.length>=4){ joinError="الغرفة مكتملة (4 لاعبين)."; render(); return; }
-    state.players[name] = {budget:START_BUDGET, squad:[], host:false};
-    state.playersOrder.push(name);
-    pushLog(state, `<b>${name}</b> دخل الغرفة`);
-    await setRoom(code, state);
+  const first = await getRoom(code);
+  if(!first){ joinError="مفيش غرفة بالكود ده."; render(); return; }
+
+  let finalState = first;
+  if(!first.players[name]){
+    const res = await withRoomLock(code, (state)=>{
+      if(state.players[name]) return; // حد تاني دخل بنفس الاسم فعلاً، مفيش داعي نضيفه تاني
+      if(state.phase!=='lobby') return {abort:true, reason:'started'};
+      if(state.playersOrder.length>=4) return {abort:true, reason:'full'};
+      state.players[name] = {budget:START_BUDGET, squad:[], host:false};
+      state.playersOrder.push(name);
+      pushLog(state, `<b>${name}</b> دخل الغرفة`);
+    });
+    if(!res.ok){
+      if(res.reason==='started'){ joinError="المزاد بدأ بالفعل، مينفعش تنضم دلوقتي."; render(); return; }
+      if(res.reason==='full'){ joinError="الغرفة مكتملة (4 لاعبين)."; render(); return; }
+      joinError="حصلت مشكلة في الاتصال، جرب تاني."; render(); return;
+    }
+    finalState = res.state;
   }
-  myName = name; roomCode = code; localState = state;
+  myName = name; roomCode = code; localState = finalState;
   history.replaceState(null,'', location.pathname+'?room='+code);
   startPolling();
   render();
@@ -527,44 +941,56 @@ async function startAuction(){
     render();
     return;
   }
-  const state = await getRoom(roomCode);
-  if(!state || state.playersOrder.length<2){ startingAuction=false; render(); return; }
   const shuffledPool = shuffle(pool);
-  state.pool = shuffledPool;
-  state.cardQueue = shuffledPool.map((_,i)=>i).slice(0, Math.min(shuffledPool.length, MAX_CARDS));
-  state.cardIndex = 0;
-  state.currentCard = shuffledPool[state.cardQueue[0]];
-  state.currentBid = state.currentCard.price;
-  state.currentBidder = null;
-  state.auctionEndsAt = Date.now() + BID_SECONDS*1000;
-  state.phase = 'auction';
-  pushLog(state, `بدأ المزاد! أول كارت: <b>${state.currentCard.name}</b>`);
-  await setRoom(roomCode, state);
-  localState = state; startingAuction=false; render();
+  const res = await withRoomLock(roomCode, (state)=>{
+    if(state.phase!=='lobby') return {abort:true}; // حد تاني (المدير من تاب تاني مثلاً) بدأ المزاد فعلاً
+    if(state.playersOrder.length<2) return {abort:true};
+    state.pool = shuffledPool;
+    state.cardQueue = shuffledPool.map((_,i)=>i).slice(0, Math.min(shuffledPool.length, MAX_CARDS));
+    state.cardIndex = 0;
+    state.currentCard = shuffledPool[state.cardQueue[0]];
+    state.currentBid = state.currentCard.price;
+    state.currentBidder = null;
+    state.auctionEndsAt = Date.now() + BID_SECONDS*1000;
+    state.phase = 'auction';
+    pushLog(state, `بدأ المزاد! أول كارت: <b>${state.currentCard.name}</b>`);
+  });
+  if(res.ok) localState = res.state;
+  startingAuction=false; render();
 }
 
+let bidding = false;
 async function placeBid(mult){
+  if(bidding) return; // يمنع الضغط المزدوج/المتكرر السريع (double-tap) من إرسال مزايدتين
+  bidding = true;
   bidError="";
-  const state = await getRoom(roomCode);
-  if(!state || state.phase!=='auction') { render(); return; }
-  if(Date.now() >= state.auctionEndsAt){ render(); return; }
-  const me = state.players[myName];
-  const card = state.currentCard;
-  const inc = incrementFor(state.currentBid) * mult;
-  const newBid = state.currentBid + inc;
-  const posCount = me.squad.filter(s=>s.pos===card.pos).length;
+  let localErr = "";
+  const res = await withRoomLock(roomCode, (state)=>{
+    localErr = "";
+    if(state.phase!=='auction') return {abort:true};
+    if(Date.now() >= state.auctionEndsAt) return {abort:true}; // الوقت خلص فعلاً، سيب settleTick يقفل الكارت
+    const me = state.players[myName];
+    if(!me) return {abort:true};
+    const card = state.currentCard;
+    const inc = incrementFor(state.currentBid) * mult;
+    const newBid = state.currentBid + inc;
+    const posCount = me.squad.filter(s=>s.pos===card.pos).length;
 
-  if(me.squad.length >= SQUAD_MAX_TOTAL){ bidError="تشكيلتك مكتملة (18 لاعب)."; render(); return; }
-  if(posCount >= POS_MAX[card.pos]){ bidError=`وصلت للحد الأقصى من ${POS_LABEL[card.pos]}ين.`; render(); return; }
-  const hypotheticalSquad = [...me.squad, {pos:card.pos}];
-  if(me.budget - newBid < reserveNeeded(hypotheticalSquad)){ bidError="لازم تسيب فلوس كفاية تكمل بيها التشكيلة."; render(); return; }
-  if(state.currentBidder === myName){ bidError="إنت صاحب أعلى مزايدة بالفعل."; render(); return; }
+    if(me.squad.length >= SQUAD_MAX_TOTAL){ localErr="تشكيلتك مكتملة (18 لاعب)."; return {abort:true}; }
+    if(posCount >= POS_MAX[card.pos]){ localErr=`وصلت للحد الأقصى من ${POS_LABEL[card.pos]}ين.`; return {abort:true}; }
+    const hypotheticalSquad = [...me.squad, {pos:card.pos}];
+    if(me.budget - newBid < reserveNeeded(hypotheticalSquad)){ localErr="لازم تسيب فلوس كفاية تكمل بيها التشكيلة."; return {abort:true}; }
+    if(state.currentBidder === myName){ localErr="إنت صاحب أعلى مزايدة بالفعل."; return {abort:true}; }
 
-  state.currentBid = newBid;
-  state.currentBidder = myName;
-  state.auctionEndsAt = Date.now() + BID_SECONDS*1000;
-  await setRoom(roomCode, state);
-  localState = state; render();
+    state.currentBid = newBid;
+    state.currentBidder = myName;
+    // الوقت مبيرجعش م الأول لما حد يزايد — بيفضل عادّ عادي عشان لاعب يقدر يخطف الكارت في آخر ثانية
+  });
+  if(res.ok) localState = res.state;
+  else if(res.state) localState = res.state;
+  bidError = localErr;
+  bidding = false;
+  render();
 }
 
 function allFull(players){
@@ -575,45 +1001,43 @@ let roleAssigning = false;
 async function assignRole(playerId, role){
   if(roleAssigning) return;
   roleAssigning = true;
-  try{
-    const state = await getRoom(roomCode);
-    if(!state){ roleAssigning=false; return; }
+  const res = await withRoomLock(roomCode, (state)=>{
     const me = state.players[myName];
-    if(!me){ roleAssigning=false; return; }
+    if(!me) return {abort:true};
     const entry = me.squad.find(x=>x.id===playerId && x.role===null);
-    if(!entry){ roleAssigning=false; render(); return; }
-    if(role==='start'){
+    if(!entry) return {abort:true};
+    let r = role;
+    if(r==='start'){
       const startersInPos = me.squad.filter(x=>x.role==='start' && x.pos===entry.pos).length;
-      if(startersInPos >= STARTER_MAX[entry.pos]) role = 'bench'; // خانات المركز مكتملة، ينزل الدكة تلقائيًا
+      if(startersInPos >= STARTER_MAX[entry.pos]) r = 'bench'; // خانات المركز مكتملة، ينزل الدكة تلقائيًا
     }
-    entry.role = role;
-    pushLog(state, `<b>${myName}</b> نزّل ${entry.name} ${role==='start'? 'أساسي':'على الدكة'}`);
-    await setRoom(roomCode, state);
-    localState = state;
-  }catch(e){ console.error(e); }
+    entry.role = r;
+    pushLog(state, `<b>${myName}</b> نزّل ${entry.name} ${r==='start'? 'أساسي':'على الدكة'}`);
+  });
+  if(res.ok) localState = res.state;
   roleAssigning = false;
   render();
 }
 
+let settlingInFlight = false;
 async function settleTick(){
   if(!localState || localState.phase!=='auction') return;
   if(Date.now() < localState.auctionEndsAt) return;
+  if(settlingInFlight) return; // منع نفس التاب من يبدأ محاولة تسوية جوه محاولة تانية شغالة
+  settlingInFlight = true;
 
   const lockId = Math.random().toString(36).slice(2);
-  let state = await getRoom(roomCode);
-  if(!state || state.phase!=='auction') { localState=state; return; }
-  if(Date.now() < state.auctionEndsAt) { localState=state; return; }
+  // خطوة القفل نفسها بقت atomic (CAS) — لو تابين حاولوا يقفلوا الكارت في نفس اللحظة،
+  // واحد بس هيكسب القفل والتاني هياخد conflict ويرجع يقرا الحالة الجديدة تلقائيًا.
+  const claim = await withRoomLock(roomCode, (state)=>{
+    if(state.phase!=='auction') return {abort:true};
+    if(Date.now() < state.auctionEndsAt) return {abort:true};
+    state.phase = 'settling';
+    state.settleLock = {id:lockId, at:Date.now()};
+  });
+  if(!claim.ok){ if(claim.state) localState = claim.state; settlingInFlight=false; render(); return; }
 
-  state.phase = 'settling';
-  state.settleLock = {id:lockId, at:Date.now()};
-  await setRoom(roomCode, state);
-  await new Promise(r=>setTimeout(r, 450));
-  const check = await getRoom(roomCode);
-  if(!check || !check.settleLock || check.settleLock.id !== lockId){
-    localState = check; render(); return;
-  }
-
-  state = check;
+  let state = claim.state; // إحنا اللي كسبنا القفل فعليًا، مفيش حد تاني هيلمس الكارت ده دلوقتي
   const card = state.currentCard;
   if(state.currentBidder){
     const buyer = state.players[state.currentBidder];
@@ -641,7 +1065,7 @@ async function settleTick(){
     state.settleLock = null;
     state.resultsStatus = 'pending';
     await setRoom(roomCode, state);
-    localState = state; render();
+    localState = state; settlingInFlight=false; render();
     runAIRanking(state);
     return;
   }
@@ -654,7 +1078,7 @@ async function settleTick(){
   state.settleLock = null;
   state.phase = 'auction';
   await setRoom(roomCode, state);
-  localState = state; render();
+  localState = state; settlingInFlight=false; render();
 }
 
 async function runAIRanking(state){
@@ -668,7 +1092,7 @@ async function runAIRanking(state){
         squad: p.squad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))
       };
     });
-    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${state.playersOrder.length} مديرين اشتروها في مزاد لاعبين حقيقيين (كل واحد كان معاه 500 مليون يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
+    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${state.playersOrder.length} مديرين اشتروها في مزاد لاعبين حقيقيين (كل واحد كان معاه 10 مليار يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
 
 البيانات:
 ${JSON.stringify(squadsSummary, null, 2)}
@@ -705,7 +1129,7 @@ ${JSON.stringify(squadsSummary, null, 2)}
         const totalSpent = p.squad.reduce((s,x)=>s+x.price,0);
         const balance = ["GK","DF","MF","FW"].every(pos=>p.squad.filter(s=>s.pos===pos).length >= (POS_MIN[pos]-2));
         const score = Math.round(totalSpent/4 + (balance?15:0));
-        return {managerName:name, place:0, score, verdict:"تعذر الوصول لتحليل الذكاء الاصطناعي، ده تقييم مبسط بناءً على قيمة التشكيلة."};
+        return {managerName:name, place:0, score, verdict:"تعذر الوصول لنظام التحليل، ده تقييم مبسط بناءً على قيمة التشكيلة."};
       }).sort((a,b)=>b.score-a.score).map((r,i)=>({...r, place:i+1})),
       overall: "تعذر الاتصال بخدمة التحليل، فالترتيب ده مبني على إجمالي قيمة اللاعبين اللي اشتراهم كل مدير."
     };
@@ -742,7 +1166,7 @@ function esc(s){ return (s||'').replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&'
 function imgAttrs(src){ return `src="${esc(src||PLACEHOLDER_IMG)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';"`; }
 
 function render(){
-  footerNote.textContent = roomCode ? `غرفة رقم ${roomCode} — صور اللاعبين وأسعارهم بتتحدد عشوائيًا وقت المزاد` : '2 إلى 4 لاعبين، 500 مليون يورو لكل واحد، وتشكيلة من 15 إلى 18 لاعب — بصور حقيقية عشوائية في كل مباراة';
+  footerNote.textContent = roomCode ? `غرفة رقم ${roomCode} — صور اللاعبين وأسعارهم بتتحدد عشوائيًا وقت المزاد` : '2 إلى 4 لاعبين، 10 مليار يورو لكل واحد، وتشكيلة من 15 إلى 18 لاعب — بصور حقيقية عشوائية في كل مباراة';
 
   if(!roomCode){ renderLanding(); return; }
   if(!localState){ app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>بنجهز الغرفة...</div></div>`; return; }
@@ -993,7 +1417,7 @@ function attachTilt(){
 function renderResults(){
   const s = localState;
   if(!s.results){
-    app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>الذكاء الاصطناعي بيحلل التشكيلات ويحدد الترتيب...</div></div>`;
+    app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>بنحلل التشكيلات ونحدد الترتيب النهائي...</div></div>`;
     return;
   }
   const ranking = [...s.results.ranking].sort((a,b)=>a.place-b.place);
