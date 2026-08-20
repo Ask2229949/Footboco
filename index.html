@@ -81,6 +81,22 @@
   .num{font-family:'Manrope','Tajawal',sans-serif;}
   .wrap{max-width:940px;margin:0 auto;padding:18px 14px 70px;position:relative;}
 
+  .download-badge{
+    position:fixed;top:14px;left:14px;z-index:50;
+    display:flex;align-items:center;gap:7px;
+    padding:10px 16px;border-radius:999px;
+    background:linear-gradient(180deg,var(--gold-hi),var(--gold));
+    color:#241c00;font-weight:900;font-size:12.5px;text-decoration:none;
+    box-shadow:0 8px 20px rgba(240,185,62,0.30), inset 0 1px 0 rgba(255,255,255,0.5);
+    border:none;transition:transform .12s ease, filter .12s ease;
+  }
+  .download-badge:hover{filter:brightness(1.05);}
+  .download-badge:active{transform:scale(0.96);}
+  .download-badge svg{width:16px;height:16px;flex-shrink:0;}
+  @media (max-width:480px){
+    .download-badge{top:10px;left:10px;padding:9px 13px;font-size:11.5px;}
+  }
+
   .brand{display:flex;align-items:center;justify-content:center;gap:11px;padding:20px 0 18px;}
   .brand .mark{width:38px;height:38px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:19px;
     background:linear-gradient(160deg, var(--gold-hi), var(--gold) 60%, #a9791b);box-shadow:0 8px 20px rgba(240,185,62,0.28), inset 0 1px 0 rgba(255,255,255,0.4);}
@@ -421,6 +437,10 @@
   <div class="pitch"></div>
   <div class="vignette"></div>
 </div>
+<a class="download-badge" href="footboco.apk" download="Footboco.apk">
+  <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 3v12m0 0l-4-4m4 4l4-4M5 19h14" stroke="#241c00" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  تحميل التطبيق
+</a>
 <div class="wrap">
   <div class="brand">
     <div class="mark">⚽</div>
