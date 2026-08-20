@@ -260,6 +260,26 @@
 
   .center-msg{text-align:center;padding:44px 10px;color:var(--muted);font-weight:700;}
   .spinner{width:36px;height:36px;border:3px solid rgba(255,255,255,0.14);border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 16px;}
+
+  .kickoff-card{text-align:center;padding:38px 24px;}
+  .kickoff-count-wrap{display:flex;align-items:center;justify-content:center;margin-bottom:14px;}
+  .kickoff-count{
+    width:112px;height:112px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-family:'Anton','Tajawal',sans-serif;font-size:56px;color:#241c00;
+    background:linear-gradient(160deg,var(--gold-hi),var(--gold) 65%,#a9791b);
+    box-shadow:0 12px 34px rgba(240,185,62,0.38), inset 0 2px 0 rgba(255,255,255,0.5);
+    animation:kickoffPop .5s cubic-bezier(.2,.9,.25,1);
+  }
+  .kickoff-count.go{
+    background:linear-gradient(160deg,#4de3a7,var(--emerald) 65%,#0e5c3c);
+    box-shadow:0 12px 34px rgba(34,209,140,0.42), inset 0 2px 0 rgba(255,255,255,0.5);
+    font-size:44px;
+  }
+  @keyframes kickoffPop{from{transform:scale(0.55);opacity:0;}to{transform:scale(1);opacity:1;}}
+  .kickoff-title{font-weight:900;font-size:18px;margin-bottom:6px;}
+  .kickoff-players{color:var(--muted);font-size:13px;font-weight:700;margin-bottom:18px;}
+  .kickoff-avatars{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;}
+  .kickoff-avatars .avatar{width:34px;height:34px;font-size:12px;}
   @keyframes spin{to{transform:rotate(360deg);}}
 
   /* results */
@@ -753,8 +773,14 @@ const POS_LABEL = {GK:"حارس", DF:"مدافع", MF:"وسط", FW:"مهاجم"}
 const POS_MIN = {GK:2, DF:5, MF:5, FW:3};
 const POS_MAX = {GK:2, DF:7, MF:7, FW:6};
 const SQUAD_MIN_TOTAL = 15, SQUAD_MAX_TOTAL = 18;
-const START_BUDGET = 10000; // 10000م = 10 مليار يورو
-const BID_SECONDS = 30;
+const START_BUDGET = 3000; // 3000م = 3 مليار يورو
+const MAX_PLAYERS = 6;
+// وقت اللاعب الأول (قبل ما حد يزايد أصلًا) — لو محدش زايد خلال المدة دي يخرج الكارت من غير بيع
+const BID_SECONDS_OPEN = 20;
+// عداد الإغلاق: كل مزايدة جديدة بتصفّر العداد ده — لو عدى من غير ما حد يزايد فوق الأعلى مزايد، الصفقة بتتقفل له تلقائيًا.
+// النظام ده بيمنع "السرقة في آخر ثانية" لأن أي مزايدة بتدي فرصة عادلة (5 ثواني) للباقي يردوا.
+const BID_SECONDS_CLOSING = 5;
+const BID_SECONDS = BID_SECONDS_OPEN; // تستخدم بس لحساب نسبة الدائرة الأولى
 const MAX_CARDS = 80;
 // شكل تشكيلة أساسية 4-3-3 (11 لاعب) — الباقي بيقعدوا على الدكة
 const STARTER_MAX = {GK:1, DF:4, MF:3, FW:3};
@@ -814,6 +840,7 @@ let creating = false;
 let startingAuction = false;
 let startProgressText = "";
 let startFailed = "";
+let kickoffCount = null; // 3, 2, 1, 0(انطلقنا) — null يعني مفيش عد تنازلي شغال
 
 const params = new URLSearchParams(location.search);
 const urlRoom = (params.get('room')||'').replace(/[^0-9]/g,'').slice(0,4);
@@ -822,7 +849,7 @@ const urlRoom = (params.get('room')||'').replace(/[^0-9]/g,'').slice(0,4);
    بيستخدموا نفس قناة الـ Realtime بتاعة الغرفة عن طريق broadcast (للشات
    وإشارات الاتصال) وpresence (لمعرفة مين موجود دلوقتي عشان نعمل اتصال معاه).
    مفيش سيرفر إشارة خارجي — القناة نفسها بتوصل العروض/الردود/الـICE.
-   الصوت بيتوصل مباشر peer-to-peer (WebRTC mesh)، مناسب لعدد صغير زي 2-4 لاعبين. */
+   الصوت بيتوصل مباشر peer-to-peer (WebRTC mesh)، مناسب لعدد صغير زي 2-6 لاعبين. */
 const ICE_SERVERS = [{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}];
 const peerConnections = {};
 const peerMeta = {};
@@ -1143,7 +1170,7 @@ async function joinRoom(code, name){
     const res = await withRoomLock(code, (state)=>{
       if(state.players[name]) return;
       if(state.phase!=='lobby') return {abort:true, reason:'started'};
-      if(state.playersOrder.length>=4) return {abort:true, reason:'full'};
+      if(state.playersOrder.length>=MAX_PLAYERS) return {abort:true, reason:'full'};
       state.players[name] = {budget:START_BUDGET, squad:[], host:false};
       state.playersOrder.push(name);
       pushLog(state, `<b>${name}</b> دخل الغرفة`);
@@ -1151,7 +1178,7 @@ async function joinRoom(code, name){
     if(!res.ok){
       joining=false;
       if(res.reason==='started'){ joinError="المزاد بدأ بالفعل، مينفعش تنضم دلوقتي."; render(); return; }
-      if(res.reason==='full'){ joinError="الغرفة مكتملة (4 لاعبين)."; render(); return; }
+      if(res.reason==='full'){ joinError=`الغرفة مكتملة (${MAX_PLAYERS} لاعبين).`; render(); return; }
       joinError="حصلت مشكلة في الاتصال، جرب تاني."; render(); return;
     }
     finalState = res.state;
@@ -1162,6 +1189,25 @@ async function joinRoom(code, name){
   history.replaceState(null,'', location.pathname+'?room='+code);
   startPolling();
   render();
+}
+
+
+function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
+
+// شاشة انطلاق احترافية: بتوضح عدد اللاعبين في الروم وعداد 3-2-1 قبل ما نبدأ فعليًا،
+// بدل ما المدير يدوس زرار وتختفي الغرفة فجأة من غير أي حس بالبداية.
+async function beginKickoff(){
+  if(kickoffCount!==null || startingAuction) return;
+  kickoffCount = 3; render();
+  await sleep(650);
+  kickoffCount = 2; render();
+  await sleep(650);
+  kickoffCount = 1; render();
+  await sleep(650);
+  kickoffCount = 0; render(); // "انطلقنا!"
+  await sleep(500);
+  kickoffCount = null;
+  startAuction();
 }
 
 async function startAuction(){
@@ -1186,7 +1232,8 @@ async function startAuction(){
     state.currentCard = shuffledPool[state.cardQueue[0]];
     state.currentBid = state.currentCard.price;
     state.currentBidder = null;
-    state.auctionEndsAt = Date.now() + BID_SECONDS*1000;
+    state.auctionEndsAt = Date.now() + BID_SECONDS_OPEN*1000;
+    state.auctionWindowSeconds = BID_SECONDS_OPEN;
     state.phase = 'auction';
     pushLog(state, `بدأ المزاد! أول كارت: <b>${state.currentCard.name}</b>`);
   });
@@ -1214,7 +1261,8 @@ async function placeBid(mult){
   // هيترجع للحالة الحقيقية تلقائيًا بعد شوية. =====
   bidding = true;
   bidError = "";
-  localState = Object.assign({}, s0, {currentBid: optimisticBid, currentBidder: myName});
+  const optimisticEndsAt = Date.now() + BID_SECONDS_CLOSING*1000;
+  localState = Object.assign({}, s0, {currentBid: optimisticBid, currentBidder: myName, auctionEndsAt: optimisticEndsAt, auctionWindowSeconds: BID_SECONDS_CLOSING});
   render();
 
   let localErr = "";
@@ -1238,6 +1286,10 @@ async function placeBid(mult){
 
     state.currentBid = newBid;
     state.currentBidder = myName;
+    // كل مزايدة بتصفّر عداد الإغلاق لـ5 ثواني — كده محدش يقدر ياخد صفقة بمزايدة في آخر جزء من الثانية
+    // من غير ما يدي فرصة عادلة للباقي يردوا عليه.
+    state.auctionEndsAt = Date.now() + BID_SECONDS_CLOSING*1000;
+    state.auctionWindowSeconds = BID_SECONDS_CLOSING;
   });
   if(res.ok) localState = res.state;
   else if(res.state) localState = res.state; // رجوع للحالة الحقيقية لو العملية اتلغت
@@ -1248,6 +1300,10 @@ async function placeBid(mult){
 
 function allFull(players){
   return Object.values(players).every(p=>p.squad.length >= SQUAD_MAX_TOTAL);
+}
+// اللعبة تخلص فور ما أول تشكيلة تكتمل (18 لاعب) — مش لازم نستنى الكل
+function anyFull(players){
+  return Object.values(players).some(p=>p.squad.length >= SQUAD_MAX_TOTAL);
 }
 
 let roleAssigning = false;
@@ -1329,7 +1385,7 @@ async function settleTick(){
   }
 
   const nextIndex = state.cardIndex + 1;
-  const full = allFull(state.players);
+  const full = anyFull(state.players);
   if(nextIndex >= state.cardQueue.length || full){
     Object.values(state.players).forEach(p=>{
       p.squad.forEach(x=>{
@@ -1354,7 +1410,8 @@ async function settleTick(){
   state.currentCard = state.pool[state.cardQueue[nextIndex]];
   state.currentBid = state.currentCard.price;
   state.currentBidder = null;
-  state.auctionEndsAt = Date.now() + BID_SECONDS*1000;
+  state.auctionEndsAt = Date.now() + BID_SECONDS_OPEN*1000;
+  state.auctionWindowSeconds = BID_SECONDS_OPEN;
   state.settleLock = null;
   state.phase = 'auction';
   await setRoom(roomCode, state);
@@ -1372,7 +1429,7 @@ async function runAIRanking(state){
         squad: p.squad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))
       };
     });
-    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${state.playersOrder.length} مديرين اشتروها في مزاد لاعبين حقيقيين ومعروفين فعليًا (كل واحد كان معاه 10 مليار يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
+    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${state.playersOrder.length} مديرين اشتروها في مزاد لاعبين حقيقيين ومعروفين فعليًا (كل واحد كان معاه 3 مليار يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
 
 البيانات:
 ${JSON.stringify(squadsSummary, null, 2)}
@@ -1477,7 +1534,7 @@ function renderLanding(){
   if(landingTab==='create'){
     formArea.innerHTML = `
       <h2>ابدأ مزاد جديد</h2>
-      <p class="sub">هتبقى إنت المدير الأول، وبعدين ابعت اللينك لأصحابك (2-4 لاعبين) عشان ينضموا من جهازهم.</p>
+      <p class="sub">هتبقى إنت المدير الأول، وبعدين ابعت اللينك لأصحابك (2-6 لاعبين) عشان ينضموا من جهازهم.</p>
       <div class="field"><label>اسمك</label><input type="text" id="cName" placeholder="اكتب اسمك" maxlength="16"></div>
       <button class="btn btn-gold" id="cBtn" ${creating?'disabled':''}>${creating? 'بنجهز...' : 'إنشاء الغرفة'}</button>
     `;
@@ -1529,6 +1586,20 @@ function renderLobby(){
   const s = localState;
   const isHost = s.players[myName] && s.players[myName].host;
   const link = location.origin + location.pathname + '?room=' + s.code;
+  if(kickoffCount!==null){
+    app.innerHTML = `
+    <div class="card kickoff-card">
+      <div class="kickoff-count-wrap">
+        <div class="kickoff-count ${kickoffCount===0?'go':''}" id="kickoffNum">${kickoffCount===0?'⚽':kickoffCount}</div>
+      </div>
+      <div class="kickoff-title">${kickoffCount===0? 'انطلقنا!' : 'المزاد هيبدأ خلال...'}</div>
+      <div class="kickoff-players">${s.playersOrder.length} لاعبين جاهزين في الغرفة</div>
+      <div class="kickoff-avatars">
+        ${s.playersOrder.map(n=>`<div class="avatar" title="${esc(n)}">${esc(n[0]||'?')}</div>`).join('')}
+      </div>
+    </div>`;
+    return;
+  }
   if(startingAuction){
     app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>${esc(startProgressText)}</div></div>`;
     return;
@@ -1565,13 +1636,14 @@ function renderLobby(){
       setTimeout(()=>{ const b=document.getElementById('copyBtn'); if(b) b.textContent='نسخ الرابط'; }, 1500);
     }).catch(()=>{});
   };
-  if(isHost){ document.getElementById('startBtn').onclick = startAuction; }
+  if(isHost){ document.getElementById('startBtn').onclick = beginKickoff; }
 }
 
 function timeFrac(){
   if(!localState || !localState.auctionEndsAt) return 0;
   const remain = localState.auctionEndsAt - Date.now();
-  return Math.max(0, Math.min(1, remain/(BID_SECONDS*1000)));
+  const windowSecs = localState.auctionWindowSeconds || BID_SECONDS_OPEN;
+  return Math.max(0, Math.min(1, remain/(windowSecs*1000)));
 }
 function renderTimerOnly(){
   const ring = document.getElementById('ringFg');
@@ -1635,7 +1707,7 @@ function renderAuction(){
             ${card.league? `<span class="dot">•</span>${esc(card.league)}`:''}
           </div>
           <div class="price-row"><span class="euro">€</span><span class="amount num">${s.currentBid}</span><span class="euro">مليون</span></div>
-          <div class="leader ${s.currentBidder?'':'none'}">${s.currentBidder? `أعلى مزايدة: <span class="lname">${esc(s.currentBidder)}${s.currentBidder===myName?' (إنت)':''}</span>` : 'مفيش حد زايد لسه — كن أول واحد'}</div>
+          <div class="leader ${s.currentBidder?'':'none'}">${s.currentBidder? `أعلى مزايدة: <span class="lname">${esc(s.currentBidder)}${s.currentBidder===myName?' (إنت)':''}</span> — هياخد اللاعب لو محدش زاود خلال ${BID_SECONDS_CLOSING} ثواني` : 'مفيش حد زايد لسه — كن أول واحد'}</div>
           ${blockReason ? `<div class="bid-blocked">${esc(blockReason)}</div>` : `
           <div class="bid-actions ${bidding?'is-bidding':''}">
             <button class="btn btn-gold" id="bid1" ${bidding?'disabled':''}>زايد بـ €${incrementFor(s.currentBid)}م</button>
