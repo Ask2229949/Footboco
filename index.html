@@ -283,6 +283,12 @@
   @keyframes spin{to{transform:rotate(360deg);}}
 
   /* results */
+  .whistle-card{text-align:center;padding:40px 22px;}
+  .whistle-icon{font-size:54px;margin-bottom:10px;animation:whistlePop .55s cubic-bezier(.2,.9,.25,1);filter:drop-shadow(0 6px 16px rgba(240,185,62,0.3));}
+  @keyframes whistlePop{from{transform:scale(0.5) rotate(-8deg);opacity:0;}to{transform:scale(1) rotate(0);opacity:1;}}
+  .whistle-card h2{margin-bottom:8px;}
+  .whistle-card .sub{margin-bottom:20px;}
+
   .winner-banner{position:relative;overflow:hidden;background:linear-gradient(135deg, rgba(240,185,62,0.20), rgba(240,185,62,0.02));border:1px solid var(--gold-dim);border-radius:20px;padding:24px 20px;margin-bottom:18px;text-align:center;}
   .winner-banner .crown{font-size:32px;}
   .winner-banner h3{margin:8px 0 9px;font-size:20px;font-weight:900;color:var(--gold);}
@@ -342,54 +348,7 @@
   @keyframes toastIn{from{opacity:0;transform:translateY(-14px) scale(0.94);}to{opacity:1;transform:translateY(0) scale(1);}}
   @keyframes toastOut{from{opacity:1;}to{opacity:0;transform:translateY(-8px);}}
 
-  /* ===== SOCIAL LAYER ===== */
-  .fab-stack{position:fixed;left:16px;bottom:18px;display:flex;flex-direction:column;gap:11px;z-index:60;}
-  .fab{position:relative;width:53px;height:53px;border-radius:16px;border:none;cursor:pointer;
-    font-size:21px;display:flex;align-items:center;justify-content:center;
-    background:linear-gradient(160deg, var(--panel-hi), var(--panel));border:1px solid var(--line-hi);
-    color:var(--white);box-shadow:0 10px 24px rgba(0,0,0,0.5);transition:transform .12s ease, filter .12s ease;}
-  .fab:active{transform:scale(0.93);}
-  .fab-mic.on{background:linear-gradient(160deg,#4de3a7,var(--emerald));border-color:var(--emerald-dim);
-    box-shadow:0 0 0 4px rgba(34,209,140,0.18), 0 10px 24px rgba(0,0,0,0.5);animation:micPulse 1.8s ease-in-out infinite;}
-  .fab-mic.busy{opacity:0.6;}
-  @keyframes micPulse{0%,100%{box-shadow:0 0 0 4px rgba(34,209,140,0.18), 0 10px 24px rgba(0,0,0,0.5);}50%{box-shadow:0 0 0 9px rgba(34,209,140,0.08), 0 10px 24px rgba(0,0,0,0.5);}}
-  @media (prefers-reduced-motion: reduce){ .fab-mic.on{animation:none;} }
-  .fab-badge{position:absolute;top:-4px;right:-4px;background:var(--crimson);color:white;font-size:10px;
-    font-weight:900;border-radius:20px;min-width:18px;height:18px;padding:0 4px;display:flex;align-items:center;justify-content:center;
-    box-shadow:0 0 0 2px var(--bg-a);}
-  .mic-peers{position:fixed;left:16px;bottom:80px;z-index:59;display:flex;flex-direction:column;gap:5px;align-items:flex-start;
-    max-width:150px;pointer-events:none;}
-  .mic-peer-chip{pointer-events:none;font-size:10.5px;font-weight:800;background:rgba(34,209,140,0.16);color:#9df0c4;
-    border:1px solid rgba(34,209,140,0.38);border-radius:20px;padding:4px 10px 4px 7px;display:flex;align-items:center;gap:5px;
-    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;animation:fadeIn .2s ease;}
   @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-
-  .chat-panel{position:fixed;right:12px;left:12px;bottom:0;max-width:420px;margin:0 auto;
-    background:linear-gradient(180deg, var(--panel-hi), var(--panel));border:1px solid var(--line-hi);
-    border-radius:20px 20px 0 0;box-shadow:0 -12px 44px rgba(0,0,0,0.55);z-index:61;
-    display:flex;flex-direction:column;height:0;overflow:hidden;opacity:0;pointer-events:none;
-    transition:height .22s ease, opacity .18s ease;}
-  .chat-panel.open{height:min(58vh, 440px);opacity:1;pointer-events:auto;}
-  .chat-handle{position:absolute;top:8px;left:50%;transform:translateX(-50%);width:38px;height:4px;
-    border-radius:3px;background:rgba(255,255,255,0.2);}
-  .chat-head{position:relative;display:flex;align-items:center;justify-content:space-between;padding:17px 15px 13px;
-    font-weight:900;font-size:14px;border-bottom:1px solid var(--line);flex-shrink:0;}
-  .chat-close{background:rgba(255,255,255,0.08);border:none;color:var(--white);width:27px;height:27px;
-    border-radius:10px;cursor:pointer;font-size:13px;}
-  .chat-messages{flex:1;overflow-y:auto;padding:11px 13px;display:flex;flex-direction:column;gap:8px;}
-  .chat-empty{color:var(--muted);font-size:12.5px;text-align:center;padding:22px 0;}
-  .chat-msg{max-width:82%;background:rgba(255,255,255,0.045);border-radius:13px;padding:7px 11px;font-size:13px;align-self:flex-start;}
-  .chat-msg.me{align-self:flex-end;background:rgba(240,185,62,0.14);border:1px solid rgba(240,185,62,0.24);}
-  .chat-msg .cm-name{display:block;font-size:10.5px;font-weight:900;color:var(--gold);margin-bottom:2px;}
-  .chat-msg.me .cm-name{color:var(--gold-hi);}
-  .chat-msg .cm-text{color:var(--white);word-break:break-word;line-height:1.5;}
-  .chat-input-row{display:flex;gap:9px;padding:11px 13px;border-top:1px solid var(--line);flex-shrink:0;}
-  .chat-input-row input{flex:1;padding:11px 13px;border-radius:22px;border:1.5px solid var(--line);
-    background:rgba(0,0,0,0.24);color:var(--white);font-family:inherit;font-size:14px;outline:none;}
-  .chat-input-row input:focus{border-color:var(--gold);}
-  .chat-send{width:41px;height:41px;border-radius:13px;border:none;cursor:pointer;flex-shrink:0;
-    background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#241c00;font-size:15px;font-weight:900;}
-  .chat-send:active{transform:scale(0.92);}
 
   /* ===== EXIT CONTROL ===== */
   .exit-fab{position:fixed;top:calc(14px + env(safe-area-inset-top,0px));right:14px;z-index:70;
@@ -415,15 +374,52 @@
   .btn-danger{background:linear-gradient(180deg,#ff8a95,var(--crimson));color:#2a0a0c;box-shadow:0 8px 20px rgba(255,93,108,0.28);}
 
   @media (max-width:480px){
-    .chat-panel{right:0;left:0;max-width:100%;border-radius:22px 22px 0 0;}
-    .chat-panel.open{height:min(72dvh, 620px);}
-    .chat-input-row{padding-bottom:calc(11px + env(safe-area-inset-bottom,0px));}
-    .fab-stack{left:10px;bottom:calc(14px + env(safe-area-inset-bottom,0px));gap:10px;}
-    .fab{width:50px;height:50px;font-size:19px;}
-    .mic-peers{bottom:calc(82px + env(safe-area-inset-bottom,0px));}
     .wrap{padding:16px 12px 70px;}
     .room-code-big{font-size:32px;letter-spacing:9px;padding:15px 0 15px 18px;}
   }
+
+  /* ===== اختيار وضع اللعب ===== */
+  .mode-grid{display:flex;flex-direction:column;gap:10px;margin-bottom:4px;}
+  .mode-opt{display:flex;align-items:center;gap:13px;background:rgba(255,255,255,0.035);border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;cursor:pointer;transition:all .15s ease;text-align:right;}
+  .mode-opt:hover{background:rgba(255,255,255,0.06);}
+  .mode-opt.active{border-color:var(--gold);background:rgba(240,185,62,0.09);box-shadow:0 0 0 1px rgba(240,185,62,0.25);}
+  .mode-opt .mo-ic{width:42px;height:42px;border-radius:12px;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:20px;background:linear-gradient(160deg,var(--panel-hi),#0a1727);border:1px solid var(--line-hi);}
+  .mode-opt .mo-txt{flex:1;}
+  .mode-opt .mo-title{font-weight:900;font-size:14.5px;margin-bottom:2px;}
+  .mode-opt .mo-sub{font-size:11.5px;color:var(--muted);line-height:1.5;}
+  .mode-opt .mo-check{width:20px;height:20px;border-radius:50%;border:2px solid var(--line-hi);flex-shrink:0;}
+  .mode-opt.active .mo-check{border-color:var(--gold);background:radial-gradient(circle,var(--gold) 0 40%,transparent 42%);}
+
+  .team-pick{display:flex;gap:10px;margin-bottom:15px;}
+  .team-pick-card{flex:1;border-radius:16px;padding:14px;text-align:center;cursor:pointer;border:1.5px solid var(--line);background:rgba(255,255,255,0.035);transition:all .15s ease;}
+  .team-pick-card.blue{border-color:rgba(79,160,255,0.35);}
+  .team-pick-card.red{border-color:rgba(255,93,108,0.35);}
+  .team-pick-card.active.blue{background:rgba(79,160,255,0.14);box-shadow:0 0 0 1px var(--azure);}
+  .team-pick-card.active.red{background:rgba(255,93,108,0.14);box-shadow:0 0 0 1px var(--crimson);}
+  .team-pick-card.full{opacity:0.45;cursor:not-allowed;}
+  .team-pick-card .tp-name{font-weight:900;font-size:13.5px;margin-bottom:6px;}
+  .team-pick-card .tp-members{font-size:11px;color:var(--muted);line-height:1.8;}
+
+  .squad-summary-head .team-tag{font-size:10px;background:rgba(255,255,255,0.08);padding:2px 8px;border-radius:10px;color:var(--muted);margin-right:6px;}
+  .ai-vs-row{display:flex;align-items:center;justify-content:center;gap:10px;margin:2px 0 16px;}
+  .ai-vs-badge{flex:1;background:rgba(255,255,255,0.035);border:1px solid var(--line);border-radius:14px;padding:10px 12px;text-align:center;}
+  .ai-vs-badge .avb-l{font-size:10.5px;color:var(--muted);font-weight:800;margin-bottom:3px;}
+  .ai-vs-badge .avb-v{font-weight:900;font-size:13px;color:var(--gold);font-family:'Manrope',sans-serif;}
+  .ai-vs-x{font-weight:900;color:var(--muted-dim);font-size:12px;}
+  .pool-grid{display:flex;flex-direction:column;gap:8px;max-height:420px;overflow-y:auto;margin-bottom:14px;padding-left:2px;}
+  .pool-row{display:flex;align-items:center;gap:10px;background:rgba(255,255,255,0.035);border:1px solid var(--line);border-radius:13px;padding:9px 11px;}
+  .pool-row .pr-photo{width:38px;height:38px;border-radius:50%;overflow:hidden;background:#0a1520;border:1px solid var(--line-hi);flex-shrink:0;}
+  .pool-row .pr-photo img{width:100%;height:100%;object-fit:cover;object-position:top center;}
+  .pool-row .pr-info{flex:1;min-width:0;}
+  .pool-row .pr-name{font-weight:800;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+  .pool-row .pr-meta{font-size:10.5px;color:var(--muted);}
+  .pool-row .pr-price{font-weight:900;font-size:13px;color:var(--gold);font-family:'Manrope',sans-serif;white-space:nowrap;}
+  .pool-row .pr-buy{flex-shrink:0;background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#241c00;border:none;border-radius:10px;padding:8px 13px;font-weight:900;font-size:12px;cursor:pointer;}
+  .pool-row .pr-buy:disabled{opacity:0.3;cursor:not-allowed;filter:grayscale(0.5);}
+  .pool-filters{display:flex;gap:7px;margin-bottom:12px;overflow-x:auto;}
+  .pool-filter{flex-shrink:0;padding:7px 14px;border-radius:20px;font-size:12px;font-weight:800;cursor:pointer;background:rgba(255,255,255,0.05);color:var(--muted);border:1px solid var(--line);}
+  .pool-filter.active{background:linear-gradient(180deg,var(--gold-hi),var(--gold));color:#241c00;border-color:transparent;}
+  .ai-log{font-size:11.5px;color:var(--muted);text-align:center;margin-bottom:10px;min-height:16px;}
 </style>
 </head>
 <body>
@@ -508,26 +504,28 @@ async function withRoomLock(code, mutator, maxRetries=8){
   }
   return {ok:false, state:null, reason:'max-retries'};
 }
+// بصمة خفيفة لحالة الغرفة، بنستخدمها عشان منعملش ريفريش/ريندر كامل للشاشة
+// (وبالتالي مفيش أي وميض أو فلاش) غير لو الحالة فعلًا اتغيرت.
+let lastStateSig = null;
+function stateSig(state){ try{ return JSON.stringify(state); }catch(e){ return String(Math.random()); } }
+function applyIncomingState(state){
+  const sig = stateSig(state);
+  if(sig === lastStateSig) return; // مفيش أي تغيير حقيقي — منعيدش بناء الشاشة عشان منولّدش وميض
+  lastStateSig = sig;
+  checkNewJoins(state);
+  localState = state;
+  render();
+}
+
 function subscribeRoom(code){
-  if(realtimeChannel){ try{ realtimeChannel.untrack(); }catch(e){} sb.removeChannel(realtimeChannel); realtimeChannel = null; }
-  cleanupAllPeers();
-  chatMessages = []; chatUnread = 0;
-  realtimeChannel = sb.channel('room-'+code, {config:{presence:{key: myName}, broadcast:{self:false}}})
+  if(realtimeChannel){ sb.removeChannel(realtimeChannel); realtimeChannel = null; }
+  realtimeChannel = sb.channel('room-'+code)
     .on('postgres_changes', {event:'*', schema:'public', table:'rooms', filter:'code=eq.'+code}, (payload)=>{
       if(payload.new && payload.new.state){
-        checkNewJoins(payload.new.state);
-        localState = payload.new.state;
-        render();
+        applyIncomingState(payload.new.state);
       }
     })
-    .on('broadcast', {event:'chat'}, ({payload})=>{ onChatMessage(payload); })
-    .on('broadcast', {event:'rtc-signal'}, ({payload})=>{ if(payload && payload.to===myName) handleSignal(payload.from, payload.data); })
-    .on('presence', {event:'sync'}, ()=>{ onPresenceSync(); })
-    .subscribe((status)=>{
-      if(status==='SUBSCRIBED'){
-        realtimeChannel.track({name: myName, micOn, ts: Date.now()});
-      }
-    });
+    .subscribe();
   renderSocialLayer();
 }
 
@@ -773,8 +771,12 @@ const POS_LABEL = {GK:"حارس", DF:"مدافع", MF:"وسط", FW:"مهاجم"}
 const POS_MIN = {GK:2, DF:5, MF:5, FW:3};
 const POS_MAX = {GK:2, DF:7, MF:7, FW:6};
 const SQUAD_MIN_TOTAL = 15, SQUAD_MAX_TOTAL = 18;
-const START_BUDGET = 3000; // 3000م = 3 مليار يورو
+const START_BUDGET = 3000; // 3000م = 3 مليار يورو — ثابتة لكل مدير/فريق من غير أي استثناء
 const MAX_PLAYERS = 6;
+const TEAM_META = {
+  A:{name:'الفريق الأزرق', cls:'blue'},
+  B:{name:'الفريق الأحمر', cls:'red'},
+};
 // وقت اللاعب الأول (قبل ما حد يزايد أصلًا) — لو محدش زايد خلال المدة دي يخرج الكارت من غير بيع
 const BID_SECONDS_OPEN = 20;
 // عداد الإغلاق: كل مزايدة جديدة بتصفّر العداد ده — لو عدى من غير ما حد يزايد فوق الأعلى مزايد، الصفقة بتتقفل له تلقائيًا.
@@ -814,6 +816,31 @@ function shuffle(arr){
 }
 function genCode(){return String(Math.floor(1000+Math.random()*9000));}
 
+/* ============ فرق (2ضد2 / 3ضد3): كل الشراء والميزانية بيبقوا مشتركين
+   بين أعضاء الفريق. الدالة دي بترجع "المالك" الحقيقي للميزانية والتشكيلة —
+   الفريق نفسه في وضع الفرق، أو اللاعب لوحده في الوضع العادي. أي كود تاني
+   بيتعامل مع الميزانية/التشكيلة لازم يعدي من هنا عشان يشتغل صح في الحالتين. */
+function ownerOf(state, name){
+  const p = state.players[name];
+  if(!p) return null;
+  if(state.mode==='team' && p.teamId && state.teams && state.teams[p.teamId]) return state.teams[p.teamId];
+  return p;
+}
+// كل "الوحدات" المشاركة في المزاد: فرق في وضع الفرق، أو لاعبين في الوضع العادي
+function ownerEntries(state){
+  if(state.mode==='team' && state.teams){
+    return Object.keys(state.teams).map(id=>({id, owner:state.teams[id]}));
+  }
+  return state.playersOrder.map(n=>({id:n, owner:state.players[n]}));
+}
+function ownerDisplayName(state, id){
+  if(state.mode==='team' && state.teams && state.teams[id]){
+    const t = state.teams[id];
+    return `${t.name} (${t.members.join('، ')})`;
+  }
+  return id;
+}
+
 /* ============ VALIDATION (shared between UI hints and server-authoritative check) ============
    الدالة دي بترجع سبب المنع (أو null لو مفيش مانع) — بتتستخدم قبل الريندر
    عشان نعطل الزرار ونوضح السبب، وبتتستخدم تاني جوه withRoomLock كمصدر
@@ -827,7 +854,10 @@ function bidBlockReason(me, card, state){
   const newBid = state.currentBid + inc;
   const hypotheticalSquad = [...me.squad, {pos:card.pos}];
   if(me.budget - newBid < reserveNeeded(hypotheticalSquad)) return 'لازم تسيب فلوس كفاية تكمل بيها باقي التشكيلة.';
-  if(state.currentBidder === me._name) return 'إنت صاحب أعلى مزايدة بالفعل.';
+  if(state.currentBidder){
+    const leaderOwner = ownerOf(state, state.currentBidder);
+    if(leaderOwner === me._owner) return state.mode==='team' ? 'فريقك صاحب أعلى مزايدة بالفعل.' : 'إنت صاحب أعلى مزايدة بالفعل.';
+  }
   return null;
 }
 
@@ -840,194 +870,21 @@ let creating = false;
 let startingAuction = false;
 let startProgressText = "";
 let startFailed = "";
-let kickoffCount = null; // 3, 2, 1, 0(انطلقنا) — null يعني مفيش عد تنازلي شغال
+let createMode = 'classic'; // classic | team
+let createTeamSize = 2; // 2 (2ضد2) أو 3 (3ضد3)
+
+/* ============ لعب فردي ضد الـ AI (محلي بالكامل، من غير أي غرفة/سيرفر) ============ */
+let aiStarting = false, aiStartFailed = "";
+let aiGame = null; // {myName, pool, mySquad, aiSquad, myBudget, aiBudget, aiLog, phase, filter, results, resultsStatus}
+let aiTimer = null;
+let aiRoleAssigning = false;
 
 const params = new URLSearchParams(location.search);
 const urlRoom = (params.get('room')||'').replace(/[^0-9]/g,'').slice(0,4);
 
-/* ============ SOCIAL LAYER: مايك جماعي (WebRTC) + شات لايف ============
-   بيستخدموا نفس قناة الـ Realtime بتاعة الغرفة عن طريق broadcast (للشات
-   وإشارات الاتصال) وpresence (لمعرفة مين موجود دلوقتي عشان نعمل اتصال معاه).
-   مفيش سيرفر إشارة خارجي — القناة نفسها بتوصل العروض/الردود/الـICE.
-   الصوت بيتوصل مباشر peer-to-peer (WebRTC mesh)، مناسب لعدد صغير زي 2-6 لاعبين. */
-const ICE_SERVERS = [{urls:'stun:stun.l.google.com:19302'},{urls:'stun:stun1.l.google.com:19302'}];
-const peerConnections = {};
-const peerMeta = {};
-let presenceMicMap = {};
-let localStream = null;
-let micOn = false;
-let micBusy = false;
-let chatMessages = [];
-let chatOpen = false;
-let chatUnread = 0;
-let chatDraft = "";
+/* ============ خروج من الغرفة ============ */
 let showExitConfirm = false;
 const socialLayerEl = document.getElementById('socialLayer');
-
-function cssSafe(name){ return (name||'').replace(/[^a-zA-Z0-9\u0600-\u06FF]/g,'_'); }
-
-function sendSignal(to, data){
-  if(!realtimeChannel) return;
-  realtimeChannel.send({type:'broadcast', event:'rtc-signal', payload:{from:myName, to, data}});
-}
-
-const pendingAudioEls = new Set();
-function tryPlayAudio(el){
-  const p = el.play();
-  if(p && typeof p.catch==='function'){
-    p.then(()=>{ pendingAudioEls.delete(el); })
-     .catch(()=>{ pendingAudioEls.add(el); });
-  }
-}
-function unlockPendingAudio(){
-  if(!pendingAudioEls.size) return;
-  pendingAudioEls.forEach(el=>{ if(document.body.contains(el)) tryPlayAudio(el); else pendingAudioEls.delete(el); });
-}
-['click','touchstart','keydown'].forEach(ev=>document.addEventListener(ev, unlockPendingAudio, {passive:true}));
-
-function attachRemoteAudio(peerName, stream){
-  const box = document.getElementById('remoteAudios');
-  if(!box) return;
-  let el = document.getElementById('audio-'+cssSafe(peerName));
-  if(!el){
-    el = document.createElement('audio');
-    el.id = 'audio-'+cssSafe(peerName);
-    el.autoplay = true; el.playsInline = true; el.muted = false; el.volume = 1;
-    box.appendChild(el);
-  }
-  if(el.srcObject !== stream){
-    el.srcObject = stream;
-    tryPlayAudio(el);
-  }
-}
-
-function ensurePeerConnection(peerName){
-  if(peerConnections[peerName]) return peerConnections[peerName];
-  const polite = myName > peerName;
-  const pc = new RTCPeerConnection({iceServers: ICE_SERVERS});
-  peerConnections[peerName] = pc;
-  peerMeta[peerName] = {polite, makingOffer:false, ignoreOffer:false};
-
-  if(localStream){ pc.addTrack(localStream.getAudioTracks()[0], localStream); }
-  else { pc.addTransceiver('audio', {direction:'recvonly'}); }
-
-  pc.onicecandidate = (e)=>{ if(e.candidate) sendSignal(peerName, {type:'ice', candidate:e.candidate.toJSON()}); };
-  pc.ontrack = (e)=>{ attachRemoteAudio(peerName, e.streams[0]); };
-  pc.onnegotiationneeded = async ()=>{
-    const meta = peerMeta[peerName];
-    if(!meta) return;
-    try{
-      meta.makingOffer = true;
-      const offer = await pc.createOffer();
-      if(pc.signalingState!=='stable') return;
-      await pc.setLocalDescription(offer);
-      sendSignal(peerName, {type:'offer', description: pc.localDescription});
-    }catch(e){ console.error('negotiation failed', e); }
-    finally{ meta.makingOffer = false; }
-  };
-  return pc;
-}
-
-async function handleSignal(from, data){
-  if(!data || !from) return;
-  const pc = ensurePeerConnection(from);
-  const meta = peerMeta[from];
-  try{
-    if(data.type==='offer'){
-      const offerCollision = meta.makingOffer || pc.signalingState!=='stable';
-      meta.ignoreOffer = !meta.polite && offerCollision;
-      if(meta.ignoreOffer) return;
-      await pc.setRemoteDescription(new RTCSessionDescription(data.description));
-      const answer = await pc.createAnswer();
-      await pc.setLocalDescription(answer);
-      sendSignal(from, {type:'answer', description: pc.localDescription});
-    } else if(data.type==='answer'){
-      if(pc.signalingState==='have-local-offer') await pc.setRemoteDescription(new RTCSessionDescription(data.description));
-    } else if(data.type==='ice'){
-      try{ await pc.addIceCandidate(data.candidate); }
-      catch(e){ if(!meta.ignoreOffer) console.error('ice add failed', e); }
-    }
-  }catch(e){ console.error('signal handling error', e); }
-}
-
-function removePeer(peerName){
-  const pc = peerConnections[peerName];
-  if(pc){ try{ pc.close(); }catch(e){} delete peerConnections[peerName]; }
-  delete peerMeta[peerName];
-  delete presenceMicMap[peerName];
-  const el = document.getElementById('audio-'+cssSafe(peerName));
-  if(el) el.remove();
-}
-function cleanupAllPeers(){ Object.keys(peerConnections).forEach(removePeer); }
-
-function onPresenceSync(){
-  if(!realtimeChannel) return;
-  const state = realtimeChannel.presenceState();
-  const now = new Set();
-  const nextMicMap = {};
-  Object.entries(state).forEach(([key, metas])=>{
-    if(key===myName) return;
-    now.add(key);
-    nextMicMap[key] = !!((metas && metas[0]) || {}).micOn;
-  });
-  presenceMicMap = nextMicMap;
-  Object.keys(peerConnections).forEach(p=>{ if(!now.has(p)) removePeer(p); });
-  now.forEach(p=>{ if(!peerConnections[p]) ensurePeerConnection(p); });
-  renderSocialLayer();
-}
-
-function onChatMessage(payload){
-  if(!payload || !payload.text) return;
-  chatMessages.push(payload);
-  if(chatMessages.length>60) chatMessages = chatMessages.slice(-60);
-  if(!chatOpen) chatUnread++;
-  renderSocialLayer();
-}
-
-function sendChat(text){
-  text = (text||'').trim();
-  if(!text || !realtimeChannel) return;
-  const payload = {name: myName, text: text.slice(0,300), ts: Date.now()};
-  chatMessages.push(payload);
-  if(chatMessages.length>60) chatMessages = chatMessages.slice(-60);
-  realtimeChannel.send({type:'broadcast', event:'chat', payload});
-  renderSocialLayer();
-}
-
-async function toggleMic(){
-  if(micBusy) return;
-  if(!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia){
-    alert('المتصفح ده مش بيدعم المايك. جرب متصفح تاني أو حدّث المتصفح الحالي.');
-    return;
-  }
-  micBusy = true; renderSocialLayer();
-  try{
-    if(!localStream){
-      localStream = await navigator.mediaDevices.getUserMedia({audio:{echoCancellation:true, noiseSuppression:true, autoGainControl:true}});
-      micOn = true;
-      const track = localStream.getAudioTracks()[0];
-      track.enabled = true;
-      Object.values(peerConnections).forEach(pc=>{
-        const tr = pc.getTransceivers().find(t=>t.receiver && t.receiver.track && t.receiver.track.kind==='audio' && (!t.sender || !t.sender.track));
-        if(tr){ tr.sender.replaceTrack(track); if(tr.direction!=='sendrecv') tr.direction='sendrecv'; }
-        else { pc.addTrack(track, localStream); }
-      });
-      unlockPendingAudio();
-    } else {
-      micOn = !micOn;
-      localStream.getAudioTracks().forEach(t=>{ t.enabled = micOn; });
-    }
-    if(realtimeChannel) realtimeChannel.track({name:myName, micOn, ts:Date.now()});
-  }catch(e){
-    console.error('mic error', e);
-    let msg = 'مقدرناش نوصل للمايك. تأكد إنك سامح للموقع بصلاحية استخدام المايكروفون من إعدادات المتصفح.';
-    if(e && e.name==='NotFoundError') msg = 'مفيش مايك متوصل بالجهاز ده. وصّل مايك أو استخدم جهاز فيه مايك.';
-    else if(e && e.name==='NotAllowedError') msg = 'المايك متمنوع. من إعدادات المتصفح، سمح للموقع بصلاحية المايكروفون وجرب تاني.';
-    else if(e && e.name==='NotReadableError') msg = 'مايك الجهاز مستخدم في تطبيق تاني دلوقتي. قفل أي تطبيق تاني بيستخدم المايك وجرب تاني.';
-    alert(msg);
-  }
-  micBusy = false; renderSocialLayer();
-}
 
 /* ===== خروج من الغرفة ===== */
 function requestExit(){ showExitConfirm = true; renderSocialLayer(); }
@@ -1044,6 +901,10 @@ async function confirmExit(){
       await withRoomLock(roomCode, (state)=>{
         if(!state.players[myName]) return {abort:true};
         if(state.phase==='lobby'){
+          if(state.mode==='team'){
+            const tid = state.players[myName].teamId;
+            if(tid && state.teams[tid]) state.teams[tid].members = state.teams[tid].members.filter(n=>n!==myName);
+          }
           state.playersOrder = state.playersOrder.filter(n=>n!==myName);
           delete state.players[myName];
           if(state.playersOrder.length && !state.playersOrder.some(n=>state.players[n] && state.players[n].host)){
@@ -1057,9 +918,7 @@ async function confirmExit(){
       });
     }
   }catch(e){ console.error('exit sync failed', e); }
-  try{ cleanupAllPeers(); }catch(e){}
-  try{ if(localStream){ localStream.getTracks().forEach(t=>t.stop()); localStream = null; } }catch(e){}
-  try{ if(realtimeChannel){ realtimeChannel.untrack(); sb.removeChannel(realtimeChannel); realtimeChannel = null; } }catch(e){}
+  try{ if(realtimeChannel){ sb.removeChannel(realtimeChannel); realtimeChannel = null; } }catch(e){}
   if(pollTimer) clearInterval(pollTimer);
   if(tickTimer) clearInterval(tickTimer);
   location.href = location.pathname;
@@ -1068,25 +927,8 @@ async function confirmExit(){
 function renderSocialLayer(){
   if(!socialLayerEl) return;
   if(!roomCode){ socialLayerEl.innerHTML = ''; return; }
-  const speakingPeers = Object.entries(presenceMicMap).filter(([,on])=>on).map(([n])=>n);
   socialLayerEl.innerHTML = `
     <button class="exit-fab" id="exitFab" title="خروج"><span class="ic">🚪</span><span class="lbl">خروج</span></button>
-    ${speakingPeers.length ? `<div class="mic-peers">${speakingPeers.map(n=>`<div class="mic-peer-chip">🎤 ${esc(n)}</div>`).join('')}</div>` : ''}
-    <div class="fab-stack">
-      <button class="fab fab-mic ${micOn?'on':''} ${micBusy?'busy':''}" id="micFab" title="المايك">${micOn?'🎤':'🔇'}</button>
-      <button class="fab fab-chat" id="chatFab" title="الشات">💬${chatUnread>0?`<span class="fab-badge">${chatUnread>9?'9+':chatUnread}</span>`:''}</button>
-    </div>
-    <div class="chat-panel ${chatOpen?'open':''}" id="chatPanel">
-      <div class="chat-head"><div class="chat-handle"></div><span>💬 شات الغرفة</span><button class="chat-close" id="chatCloseBtn">✕</button></div>
-      <div class="chat-messages" id="chatMessagesBox">
-        ${chatMessages.length? chatMessages.map(m=>`<div class="chat-msg ${m.name===myName?'me':''}"><span class="cm-name">${esc(m.name)}</span><span class="cm-text">${esc(m.text)}</span></div>`).join('') : `<div class="chat-empty">اكتب أول رسالة في الغرفة 👋</div>`}
-      </div>
-      <div class="chat-input-row">
-        <input type="text" id="chatInput" placeholder="اكتب رسالة..." maxlength="300">
-        <button class="chat-send" id="chatSendBtn">➤</button>
-      </div>
-    </div>
-    <div id="remoteAudios" style="display:none;"></div>
     ${showExitConfirm ? `
     <div class="confirm-modal-backdrop" id="exitBackdrop">
       <div class="confirm-modal">
@@ -1100,37 +942,15 @@ function renderSocialLayer(){
       </div>
     </div>` : ''}
   `;
-  document.getElementById('micFab').onclick = toggleMic;
   document.getElementById('exitFab').onclick = requestExit;
-  const chatFab = document.getElementById('chatFab');
-  chatFab.onclick = ()=>{ chatOpen = !chatOpen; if(chatOpen) chatUnread = 0; renderSocialLayer(); };
-  document.getElementById('chatCloseBtn').onclick = ()=>{ chatOpen=false; renderSocialLayer(); };
   if(showExitConfirm){
     document.getElementById('exitCancelBtn').onclick = cancelExit;
     document.getElementById('exitConfirmBtn').onclick = confirmExit;
     document.getElementById('exitBackdrop').onclick = (e)=>{ if(e.target.id==='exitBackdrop') cancelExit(); };
   }
-  const input = document.getElementById('chatInput');
-  const doSend = ()=>{
-    const v = input.value;
-    sendChat(v);
-    chatDraft = "";
-  };
-  document.getElementById('chatSendBtn').onclick = doSend;
-  input.value = chatDraft;
-  input.oninput = ()=>{ chatDraft = input.value; };
-  input.onkeydown = (e)=>{ if(e.key==='Enter'){ e.preventDefault(); doSend(); } };
-  if(chatOpen){
-    input.focus();
-    const box = document.getElementById('chatMessagesBox');
-    if(box) box.scrollTop = box.scrollHeight;
-  }
 }
 
-window.addEventListener('beforeunload', ()=>{
-  cleanupAllPeers();
-  if(realtimeChannel){ try{ realtimeChannel.untrack(); }catch(e){} }
-});
+window.addEventListener('beforeunload', ()=>{});
 
 function pushLog(state, text){
   state.log = state.log || [];
@@ -1146,9 +966,16 @@ async function createRoom(name){
     existing = await getRoom(code);
     if(!existing) break;
   }
+  const isTeam = createMode==='team';
+  const teamSize = createTeamSize===3 ? 3 : 2;
   const state = {
-    code, phase:'lobby', playersOrder:[name],
-    players:{ [name]: {budget:START_BUDGET, squad:[], host:true} },
+    code, phase:'lobby', mode: isTeam?'team':'classic', teamSize: isTeam?teamSize:null,
+    playersOrder:[name],
+    players:{ [name]: isTeam ? {teamId:'A', host:true} : {budget:START_BUDGET, squad:[], host:true} },
+    teams: isTeam ? {
+      A:{name:TEAM_META.A.name, cls:TEAM_META.A.cls, members:[name], budget:START_BUDGET, squad:[]},
+      B:{name:TEAM_META.B.name, cls:TEAM_META.B.cls, members:[], budget:START_BUDGET, squad:[]},
+    } : null,
     pool:[], cardQueue:null, cardIndex:-1, currentCard:null, currentBid:0, currentBidder:null,
     auctionEndsAt:null, settleLock:null, log:[], results:null, resultsStatus:null,
   };
@@ -1161,24 +988,37 @@ async function createRoom(name){
 }
 
 let joining = false;
-async function joinRoom(code, name){
+async function joinRoom(code, name, wantTeamId){
+  joining = true; joinError = ""; render();
   const first = await getRoom(code);
   if(!first){ joining=false; joinError="مفيش غرفة بالكود ده."; render(); return; }
+  const isTeam = first.mode==='team';
+  const capacity = isTeam ? first.teamSize*2 : MAX_PLAYERS;
 
   let finalState = first;
   if(!first.players[name]){
     const res = await withRoomLock(code, (state)=>{
       if(state.players[name]) return;
       if(state.phase!=='lobby') return {abort:true, reason:'started'};
-      if(state.playersOrder.length>=MAX_PLAYERS) return {abort:true, reason:'full'};
-      state.players[name] = {budget:START_BUDGET, squad:[], host:false};
+      const cap = state.mode==='team' ? state.teamSize*2 : MAX_PLAYERS;
+      if(state.playersOrder.length>=cap) return {abort:true, reason:'full'};
+      if(state.mode==='team'){
+        let tid = wantTeamId;
+        const full = id=> state.teams[id].members.length >= state.teamSize;
+        if(!tid || full(tid)) tid = !full('A') ? 'A' : (!full('B') ? 'B' : null);
+        if(!tid) return {abort:true, reason:'full'};
+        state.players[name] = {teamId:tid, host:false};
+        state.teams[tid].members.push(name);
+      } else {
+        state.players[name] = {budget:START_BUDGET, squad:[], host:false};
+      }
       state.playersOrder.push(name);
       pushLog(state, `<b>${name}</b> دخل الغرفة`);
     });
     if(!res.ok){
       joining=false;
       if(res.reason==='started'){ joinError="المزاد بدأ بالفعل، مينفعش تنضم دلوقتي."; render(); return; }
-      if(res.reason==='full'){ joinError=`الغرفة مكتملة (${MAX_PLAYERS} لاعبين).`; render(); return; }
+      if(res.reason==='full'){ joinError=isTeam?"الفرق مكتملة بالفعل.":`الغرفة مكتملة (${MAX_PLAYERS} لاعبين).`; render(); return; }
       joinError="حصلت مشكلة في الاتصال، جرب تاني."; render(); return;
     }
     finalState = res.state;
@@ -1191,23 +1031,350 @@ async function joinRoom(code, name){
   render();
 }
 
+// اختيار فريق يدوي جوه اللوبي (قبل بداية المزاد) — أي عضو يقدر يبدّل فريقه
+async function chooseTeam(teamId){
+  if(!roomCode || !myName) return;
+  const res = await withRoomLock(roomCode, (state)=>{
+    if(state.mode!=='team' || state.phase!=='lobby') return {abort:true};
+    const me = state.players[myName];
+    if(!me) return {abort:true};
+    if(me.teamId===teamId) return {abort:true};
+    if(state.teams[teamId].members.length >= state.teamSize) return {abort:true, reason:'full'};
+    if(me.teamId) state.teams[me.teamId].members = state.teams[me.teamId].members.filter(n=>n!==myName);
+    me.teamId = teamId;
+    state.teams[teamId].members.push(myName);
+  });
+  if(res.ok) localState = res.state;
+  render();
+}
+
 
 function sleep(ms){ return new Promise(r=>setTimeout(r, ms)); }
 
-// شاشة انطلاق احترافية: بتوضح عدد اللاعبين في الروم وعداد 3-2-1 قبل ما نبدأ فعليًا،
-// بدل ما المدير يدوس زرار وتختفي الغرفة فجأة من غير أي حس بالبداية.
-async function beginKickoff(){
-  if(kickoffCount!==null || startingAuction) return;
-  kickoffCount = 3; render();
-  await sleep(650);
-  kickoffCount = 2; render();
-  await sleep(650);
-  kickoffCount = 1; render();
-  await sleep(650);
-  kickoffCount = 0; render(); // "انطلقنا!"
-  await sleep(500);
-  kickoffCount = null;
-  startAuction();
+/* ============ لعب فردي ضد الـ AI ============
+   وضع منفصل بالكامل عن نظام الغرف: مفيش Supabase ولا مزايدة بالوقت — كل واحد
+   (اللاعب والـAI) بيبني تشكيلته بميزانية ثابتة (نفس START_BUDGET) في نفس
+   الوقت، وأول واحد يخلص (يوصل للحد الأدنى ويضغط "إنهاء" أو يوصل 18 لاعب)
+   بتقفل الجولة وبيتعمل تقييم ومقارنة نهائية. */
+function aiPickScore(sp, need){
+  // قيمة تقريبية للاعب بالنسبة للسعر، مع أفضلية لسد المراكز الناقصة
+  const valueRatio = sp.rating / Math.max(8, sp.price);
+  const urgency = need ? 1.6 : 1;
+  return valueRatio * urgency;
+}
+function aiBestPick(aiG){
+  const taken = new Set([...aiG.mySquad, ...aiG.aiSquad].map(x=>x.id));
+  const candidates = aiG.pool.filter(c=>!taken.has(c.id));
+  if(!candidates.length) return null;
+  const posCounts = {GK:0,DF:0,MF:0,FW:0};
+  aiG.aiSquad.forEach(x=>posCounts[x.pos]++);
+  let best = null, bestScore = -1;
+  for(const c of candidates){
+    if(aiG.aiSquad.length >= SQUAD_MAX_TOTAL) break;
+    if(posCounts[c.pos] >= POS_MAX[c.pos]) continue;
+    const hypotheticalSquad = [...aiG.aiSquad, {pos:c.pos}];
+    if(aiG.aiBudget - c.price < reserveNeeded(hypotheticalSquad)) continue;
+    const need = posCounts[c.pos] < POS_MIN[c.pos];
+    const score = aiPickScore(c, need);
+    if(score > bestScore){ bestScore = score; best = c; }
+  }
+  return best;
+}
+function aiSquadValid(squad){
+  if(squad.length < SQUAD_MIN_TOTAL) return false;
+  return ["GK","DF","MF","FW"].every(pos=> squad.filter(s=>s.pos===pos).length >= POS_MIN[pos]);
+}
+function aiAutoRole(squad, entry){
+  const startersInPos = squad.filter(x=>x.role==='start' && x.pos===entry.pos).length;
+  return startersInPos < STARTER_MAX[entry.pos] ? 'start' : 'bench';
+}
+function aiTick(){
+  const g = aiGame;
+  if(!g || g.phase!=='building' || g.aiDone) return;
+  const pick = aiBestPick(g);
+  if(!pick || g.aiSquad.length>=SQUAD_MAX_TOTAL){
+    g.aiDone = true;
+  } else {
+    const entry = {id:pick.id, name:pick.name, pos:pick.pos, club:pick.club, league:pick.league, price:pick.price, img:pick.img, role:null};
+    entry.role = aiAutoRole(g.aiSquad, entry);
+    g.aiSquad.push(entry);
+    g.aiBudget -= pick.price;
+    g.aiLog = [`🤖 الـAI اشترى ${pick.name} (${POS_LABEL[pick.pos]}) بـ €${pick.price}م`, ...g.aiLog].slice(0,5);
+    if(g.aiSquad.length >= SQUAD_MAX_TOTAL || (!aiBestPick(g) && aiSquadValid(g.aiSquad))) g.aiDone = true;
+  }
+  maybeEndAIGame();
+  render();
+}
+function maybeEndAIGame(){
+  const g = aiGame;
+  if(!g || g.phase!=='building') return;
+  const myFull = g.mySquad.length >= SQUAD_MAX_TOTAL;
+  const aiFull = g.aiDone && g.aiSquad.length >= SQUAD_MAX_TOTAL;
+  if(myFull || aiFull || (g.myFinished && g.aiDone)){
+    endAIGame();
+  }
+}
+function endAIGame(){
+  const g = aiGame;
+  if(!g || g.phase!=='building') return;
+  g.phase = 'whistle';
+  if(aiTimer){ clearInterval(aiTimer); aiTimer=null; }
+  // أي كروت لسه من غير دور (نادر) بتتوزع تلقائي
+  [g.mySquad, g.aiSquad].forEach(squad=>{
+    squad.forEach(x=>{ if(x.role===null) x.role = aiAutoRole(squad, x); });
+  });
+  if(!aiWhistlePlayed){ aiWhistlePlayed = true; playWhistleSound(); }
+  runAISoloRanking(g);
+}
+let aiWhistlePlayed = false;
+async function runAISoloRanking(g){
+  try{
+    const squadsSummary = [
+      {managerName:g.myName, remainingBudget:g.myBudget, totalPlayers:g.mySquad.length, squad:g.mySquad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))},
+      {managerName:'الـ AI', remainingBudget:g.aiBudget, totalPlayers:g.aiSquad.length, squad:g.aiSquad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))},
+    ];
+    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلتين اتبنوا في نفس الوقت بنفس الميزانية (3 مليار يورو لكل واحدة) من لاعبين حقيقيين ومعروفين فعليًا: تشكيلة لاعب بشري وتشكيلة بناها نظام AI. قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
+البيانات:
+${JSON.stringify(squadsSummary, null, 2)}
+رد فقط بصيغة JSON صحيحة بدون أي نص إضافي أو Markdown، بالشكل ده بالظبط:
+{"ranking":[{"managerName":"...","place":1,"score":87,"verdict":"تحليل من جملتين او تلاتة بالعربي عن نقاط القوة والضعف"}],"overall":"فقرة قصيرة بالعربي تشرح ليه صاحب المركز الأول فاز وتقارن بسرعة بين التشكيلتين"}`;
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1200, messages:[{role:"user", content:prompt}] })
+    });
+    const data = await response.json();
+    let text = (data.content||[]).filter(b=>b.type==='text').map(b=>b.text).join('\n');
+    text = text.replace(/```json|```/g,'').trim();
+    const parsed = JSON.parse(text);
+    aiGame.results = parsed; aiGame.phase='results'; render();
+  }catch(e){
+    console.error('AI solo ranking failed', e);
+    const scoreOf = (squad)=>{
+      const totalSpent = squad.reduce((s,x)=>s+x.price,0);
+      const balance = ["GK","DF","MF","FW"].every(pos=>squad.filter(s=>s.pos===pos).length >= (POS_MIN[pos]-2));
+      const avgRating = squad.length? Math.round(squad.reduce((s,x)=>s+(x.rating||80),0)/squad.length) : 0;
+      return Math.round(totalSpent/6 + avgRating/2 + (balance?10:0));
+    };
+    const myScore = scoreOf(g.mySquad), aiScore = scoreOf(g.aiSquad);
+    const ranking = [
+      {managerName:g.myName, score:myScore, verdict:"تعذر الوصول لنظام التحليل، ده تقييم مبسط بناءً على قيمة وتوازن التشكيلة."},
+      {managerName:'الـ AI', score:aiScore, verdict:"تعذر الوصول لنظام التحليل، ده تقييم مبسط بناءً على قيمة وتوازن التشكيلة."},
+    ].sort((a,b)=>b.score-a.score).map((r,i)=>({...r, place:i+1}));
+    aiGame.results = {ranking, overall:"تعذر الاتصال بخدمة التحليل، فالترتيب ده مبني على قيمة وتوازن كل تشكيلة."};
+    aiGame.phase = 'results'; render();
+  }
+}
+
+async function startAISolo(name){
+  aiStarting = true; aiStartFailed = ""; aiProgressText = "بنجهز نجوم الموسم..."; render();
+  const pool = await buildPlayerPool((done,total)=>{
+    aiProgressText = `بنجهز اللاعبين... (${done}/${total})`;
+    render();
+  });
+  if(pool.length < 12){
+    aiStarting = false;
+    aiStartFailed = "تعذر تحميل صور اللاعبين من المصدر، جرب تاني كمان شوية.";
+    render();
+    return;
+  }
+  aiWhistlePlayed = false;
+  aiGame = {
+    myName: name, pool: shuffle(pool),
+    mySquad: [], aiSquad: [], myBudget: START_BUDGET, aiBudget: START_BUDGET,
+    aiLog: [], aiDone:false, myFinished:false, filter:'ALL', phase:'building', results:null,
+  };
+  aiStarting = false;
+  render();
+  aiTimer = setInterval(aiTick, 1100);
+}
+
+function aiBuyBlockReason(g, card){
+  if(g.mySquad.length >= SQUAD_MAX_TOTAL) return 'تشكيلتك مكتملة (18 لاعب).';
+  const posCount = g.mySquad.filter(s=>s.pos===card.pos).length;
+  if(posCount >= POS_MAX[card.pos]) return `وصلت للحد الأقصى من ${POS_LABEL[card.pos]}ين.`;
+  const hypotheticalSquad = [...g.mySquad, {pos:card.pos}];
+  if(g.myBudget - card.price < reserveNeeded(hypotheticalSquad)) return 'مش هتفضل معاك فلوس كفاية تكمل بيها التشكيلة.';
+  if(g.myBudget < card.price) return 'مش معاك ميزانية كفاية.';
+  return null;
+}
+function aiBuyCard(cardId){
+  const g = aiGame;
+  if(!g || g.phase!=='building') return;
+  const taken = new Set([...g.mySquad, ...g.aiSquad].map(x=>x.id));
+  if(taken.has(cardId)) return;
+  const card = g.pool.find(c=>c.id===cardId);
+  if(!card) return;
+  if(aiBuyBlockReason(g, card)) return;
+  g.myBudget -= card.price;
+  g.mySquad.push({id:card.id, name:card.name, pos:card.pos, club:card.club, league:card.league, price:card.price, img:card.img, role:null});
+  render();
+}
+function aiAssignRole(playerId, role){
+  const g = aiGame;
+  if(!g) return;
+  const entry = g.mySquad.find(x=>x.id===playerId && x.role===null);
+  if(!entry) return;
+  const r = resolveRole(g.mySquad, entry, role);
+  if(r===null) return;
+  entry.role = r;
+  maybeEndAIGame();
+  render();
+}
+function finishAISquad(){
+  const g = aiGame;
+  if(!g || g.phase!=='building') return;
+  if(g.mySquad.length < SQUAD_MIN_TOTAL) return;
+  g.myFinished = true;
+  endAIGame();
+}
+function exitAIGame(){
+  if(aiTimer){ clearInterval(aiTimer); aiTimer=null; }
+  aiGame = null;
+  location.href = location.pathname;
+}
+
+let aiProgressText = "";
+function renderAIRoot(){
+  document.body.classList.remove('stage-landing');
+  document.body.classList.toggle('stage-lobby', aiGame.phase==='building');
+  footerNote.textContent = 'لعب فردي ضد الـ AI — تشكيلتك في مواجهة تشكيلة الذكاء الاصطناعي';
+  if(aiStarting){
+    app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>${esc(aiProgressText)}</div></div>`;
+    return;
+  }
+  if(aiGame.phase==='building') renderAIBuilder();
+  else if(aiGame.phase==='whistle') renderAIWhistle();
+  else if(aiGame.phase==='results') renderAIResults();
+}
+
+function renderAIBuilder(){
+  const g = aiGame;
+  const taken = new Set([...g.mySquad, ...g.aiSquad].map(x=>x.id));
+  const filtered = g.pool.filter(c=> !taken.has(c.id) && (g.filter==='ALL' || c.pos===g.filter));
+  const pending = g.mySquad.find(x=>x.role===null);
+
+  app.innerHTML = `
+    <div class="ai-vs-row">
+      <div class="ai-vs-badge"><div class="avb-l">${esc(g.myName)} (إنت)</div><div class="avb-v">€${fmtMoney(g.myBudget)} • ${g.mySquad.length}/${SQUAD_MAX_TOTAL}</div></div>
+      <div class="ai-vs-x">VS</div>
+      <div class="ai-vs-badge"><div class="avb-l">🤖 الـ AI ${g.aiDone?'(خلص)':''}</div><div class="avb-v">€${fmtMoney(g.aiBudget)} • ${g.aiSquad.length}/${SQUAD_MAX_TOTAL}</div></div>
+    </div>
+    <div class="ai-log">${g.aiLog[0] ? esc(g.aiLog[0]) : 'الـAI بيدرس السوق...'}</div>
+
+    <div class="pool-filters">
+      ${['ALL','GK','DF','MF','FW'].map(f=>`<div class="pool-filter ${g.filter===f?'active':''}" data-f="${f}">${f==='ALL'?'الكل':POS_LABEL[f]}</div>`).join('')}
+    </div>
+    <div class="pool-grid">
+      ${filtered.length ? filtered.map(c=>{
+        const reason = aiBuyBlockReason(g, c);
+        return `
+        <div class="pool-row">
+          <div class="pr-photo"><img ${imgAttrs(c.img)} alt=""></div>
+          <div class="pr-info">
+            <div class="pr-name">${esc(c.name)}</div>
+            <div class="pr-meta"><span class="pos-pill ${c.pos}">${POS_LABEL[c.pos]}</span> ${esc(c.club)}</div>
+          </div>
+          <div class="pr-price">€${c.price}م</div>
+          <button class="pr-buy" data-buy="${esc(c.id)}" ${reason?'disabled':''} title="${reason?esc(reason):''}">شراء</button>
+        </div>`;
+      }).join('') : `<div class="bench-empty" style="text-align:center;padding:20px;">مفيش لاعبين في المركز ده دلوقتي</div>`}
+    </div>
+
+    <div class="squad-summary">
+      <div class="squad-summary-head"><span>تشكيلتك (<b>${g.mySquad.length}/${SQUAD_MAX_TOTAL}</b>)</span><span>€${fmtMoney(g.myBudget)} متبقي</span></div>
+      ${renderPitchHTML(g.mySquad)}
+    </div>
+
+    <button class="btn btn-emerald" id="aiFinishBtn" style="margin-top:14px;" ${g.mySquad.length<SQUAD_MIN_TOTAL?'disabled':''}>
+      ${g.mySquad.length<SQUAD_MIN_TOTAL? `لازم توصل ${SQUAD_MIN_TOTAL} لاعب على الأقل الأول` : 'إنهاء التشكيلة وإطلاق الصافرة 🔚'}
+    </button>
+
+    ${pending ? `
+    <div class="role-modal-backdrop" id="aiRoleBackdrop">
+      <div class="role-modal">
+        <div class="rm-photo"><img ${imgAttrs(pending.img)} alt=""></div>
+        <div class="rm-name">${esc(pending.name)}</div>
+        <div class="rm-sub">اشتريته دلوقتي — هينزل ${POS_LABEL[pending.pos]}. تحطه فين؟</div>
+        <div class="rm-actions">
+          <button class="btn btn-gold" id="aiRoleStart">أساسي 🟢</button>
+          <button class="btn btn-ghost" id="aiRoleBench">الدكة 🪑</button>
+        </div>
+      </div>
+    </div>` : ''}
+  `;
+  document.querySelectorAll('.pool-filter').forEach(el=>{ el.onclick = ()=>{ g.filter = el.getAttribute('data-f'); render(); }; });
+  document.querySelectorAll('[data-buy]').forEach(el=>{ el.onclick = ()=> aiBuyCard(el.getAttribute('data-buy')); });
+  if(!pending) document.getElementById('aiFinishBtn').onclick = finishAISquad;
+  if(pending){
+    document.getElementById('aiRoleStart').onclick = ()=> aiAssignRole(pending.id, 'start');
+    document.getElementById('aiRoleBench').onclick = ()=> aiAssignRole(pending.id, 'bench');
+  }
+}
+
+function renderAIWhistle(){
+  app.innerHTML = `
+    <div class="card whistle-card">
+      <div class="whistle-icon">🔚</div>
+      <h2>نهاية الجولة!</h2>
+      <p class="sub">تشكيلتك خلصت — بنحسب النتيجة النهائية ونقارنها بتشكيلة الـAI...</p>
+      <div class="spinner"></div>
+    </div>`;
+}
+
+function renderAIResults(){
+  const g = aiGame;
+  const ranking = [...g.results.ranking].sort((a,b)=>a.place-b.place);
+  const medals = ['🥇','🥈'];
+  const winner = ranking[0];
+  const squadByName = {[g.myName]: g.mySquad, 'الـ AI': g.aiSquad};
+  app.innerHTML = `
+    <div class="winner-banner">
+      <div class="shine"></div>
+      <div class="crown">👑</div>
+      <h3>${esc(winner.managerName)} بطل الجولة!</h3>
+      <p>${esc(g.results.overall||'')}</p>
+    </div>
+    ${ranking.map((r,i)=>`
+      <div class="rank-card ${i===0?'first':''}">
+        <div class="rank-head">
+          <div class="rank-medal">${medals[i]||'🏅'}</div>
+          <div class="rn">${esc(r.managerName)}</div>
+          <div class="rs num">${r.score}/100</div>
+        </div>
+        <div class="rank-verdict">${esc(r.verdict||'')}</div>
+        ${squadByName[r.managerName] ? renderPitchHTML(squadByName[r.managerName]) : ''}
+      </div>`).join('')}
+    <button class="btn btn-ghost" id="aiNewGameBtn" style="margin-top:8px;">لعبة جديدة</button>
+  `;
+  document.getElementById('aiNewGameBtn').onclick = exitAIGame;
+}
+
+
+
+// عداد بداية احترافي ولحظي: بيتخزن في حالة الغرفة المشتركة (kickoffAt) عشان
+// كل اللاعبين (المشرف والأعضاء) يشوفوا نفس العد التنازلي في نفس اللحظة بالظبط،
+// مش بس المشرف. أي حد فاتح الصفحة هيستقبل التحديث فورًا عن طريق الـ Realtime.
+const KICKOFF_STEP_MS = 800;
+const KICKOFF_STEPS = 3; // 3, 2, 1
+const KICKOFF_TOTAL_MS = KICKOFF_STEP_MS*KICKOFF_STEPS;
+let kickoffTriggered = false;
+
+function roomReadyToStart(state){
+  if(state.mode==='team'){
+    return state.teams && state.teams.A.members.length===state.teamSize && state.teams.B.members.length===state.teamSize;
+  }
+  return state.playersOrder.length>=2;
+}
+async function requestKickoff(){
+  const s = localState;
+  if(!s || s.kickoffAt || !roomReadyToStart(s)) return;
+  await withRoomLock(roomCode, (state)=>{
+    if(state.phase!=='lobby') return {abort:true};
+    if(state.kickoffAt) return {abort:true};
+    if(!roomReadyToStart(state)) return {abort:true};
+    state.kickoffAt = Date.now();
+  });
 }
 
 async function startAuction(){
@@ -1219,13 +1386,24 @@ async function startAuction(){
   if(pool.length < 12){
     startingAuction = false;
     startFailed = "تعذر تحميل صور اللاعبين من المصدر، جرب تاني كمان شوية.";
+    kickoffTriggered = false;
+    await withRoomLock(roomCode, (state)=>{ if(state.phase==='lobby') state.kickoffAt = null; });
     render();
     return;
   }
   const shuffledPool = shuffle(pool);
   const res = await withRoomLock(roomCode, (state)=>{
     if(state.phase!=='lobby') return {abort:true};
-    if(state.playersOrder.length<2) return {abort:true};
+    if(!roomReadyToStart(state)) return {abort:true};
+    // بنثبّت ميزانية كل الوحدات (لاعبين أو فرق) على نفس الرقم لحظة البدء —
+    // بيمنع أي فرق ميزانية ممكن يحصل لو حد فتح نسخة قديمة من الصفحة (كاش
+    // المتصفح) قبل ما ينضم. كله بياخد بالظبط START_BUDGET من غير أي استثناء.
+    if(state.mode==='team'){
+      state.teams.A.budget = START_BUDGET; state.teams.A.squad = [];
+      state.teams.B.budget = START_BUDGET; state.teams.B.squad = [];
+    } else {
+      state.playersOrder.forEach(n=>{ if(state.players[n]) state.players[n].budget = START_BUDGET; });
+    }
     state.pool = shuffledPool;
     state.cardQueue = shuffledPool.map((_,i)=>i).slice(0, Math.min(shuffledPool.length, MAX_CARDS));
     state.cardIndex = 0;
@@ -1234,6 +1412,7 @@ async function startAuction(){
     state.currentBidder = null;
     state.auctionEndsAt = Date.now() + BID_SECONDS_OPEN*1000;
     state.auctionWindowSeconds = BID_SECONDS_OPEN;
+    state.kickoffAt = null;
     state.phase = 'auction';
     pushLog(state, `بدأ المزاد! أول كارت: <b>${state.currentCard.name}</b>`);
   });
@@ -1245,12 +1424,12 @@ let bidding = false;
 async function placeBid(mult){
   if(bidding) return;
   const s0 = localState;
-  const me0 = s0 && s0.players[myName];
+  const owner0 = s0 && ownerOf(s0, myName);
   const card0 = s0 && s0.currentCard;
-  if(!s0 || !me0 || !card0 || s0.phase!=='auction' || Date.now()>=s0.auctionEndsAt) return;
+  if(!s0 || !owner0 || !card0 || s0.phase!=='auction' || Date.now()>=s0.auctionEndsAt) return;
 
   // فحص فوري قبل أي اتصال بالسيرفر — لو فيه مانع واضح، بنوريه فورًا من غير انتظار
-  const preReason = bidBlockReason(Object.assign({_name:myName}, me0), card0, s0);
+  const preReason = bidBlockReason(Object.assign({_name:myName, _owner:owner0}, owner0), card0, s0);
   if(preReason){ bidError = preReason; render(); return; }
 
   const inc0 = incrementFor(s0.currentBid) * mult;
@@ -1270,19 +1449,19 @@ async function placeBid(mult){
     localErr = "";
     if(state.phase!=='auction') return {abort:true};
     if(Date.now() >= state.auctionEndsAt) return {abort:true};
-    const me = state.players[myName];
-    if(!me) return {abort:true};
+    const owner = ownerOf(state, myName);
+    if(!owner) return {abort:true};
     const card = state.currentCard;
-    const reason = bidBlockReason(Object.assign({_name:myName}, me), card, state);
+    const reason = bidBlockReason(Object.assign({_name:myName, _owner:owner}, owner), card, state);
     if(reason){ localErr = reason; return {abort:true}; }
 
     const inc = incrementFor(state.currentBid) * mult;
     const newBid = state.currentBid + inc;
-    const posCount = me.squad.filter(s=>s.pos===card.pos).length;
-    if(me.squad.length >= SQUAD_MAX_TOTAL){ localErr="تشكيلتك مكتملة (18 لاعب)."; return {abort:true}; }
-    if(posCount >= POS_MAX[card.pos]){ localErr=`وصلت للحد الأقصى من ${POS_LABEL[card.pos]}ين.`; return {abort:true}; }
-    const hypotheticalSquad = [...me.squad, {pos:card.pos}];
-    if(me.budget - newBid < reserveNeeded(hypotheticalSquad)){ localErr="لازم تسيب فلوس كفاية تكمل بيها التشكيلة."; return {abort:true}; }
+    const posCount = owner.squad.filter(s=>s.pos===card.pos).length;
+    if(owner.squad.length >= SQUAD_MAX_TOTAL){ localErr="التشكيلة مكتملة (18 لاعب)."; return {abort:true}; }
+    if(posCount >= POS_MAX[card.pos]){ localErr=`وصلتوا للحد الأقصى من ${POS_LABEL[card.pos]}ين.`; return {abort:true}; }
+    const hypotheticalSquad = [...owner.squad, {pos:card.pos}];
+    if(owner.budget - newBid < reserveNeeded(hypotheticalSquad)){ localErr="لازم تسيبوا فلوس كفاية تكملوا بيها التشكيلة."; return {abort:true}; }
 
     state.currentBid = newBid;
     state.currentBidder = myName;
@@ -1298,12 +1477,12 @@ async function placeBid(mult){
   render();
 }
 
-function allFull(players){
-  return Object.values(players).every(p=>p.squad.length >= SQUAD_MAX_TOTAL);
+function allFull(state){
+  return ownerEntries(state).every(e=>e.owner.squad.length >= SQUAD_MAX_TOTAL);
 }
-// اللعبة تخلص فور ما أول تشكيلة تكتمل (18 لاعب) — مش لازم نستنى الكل
-function anyFull(players){
-  return Object.values(players).some(p=>p.squad.length >= SQUAD_MAX_TOTAL);
+// اللعبة تخلص فور ما أول تشكيلة (فرد أو فريق) تكتمل (18 لاعب) — مش لازم نستنى الكل
+function anyFull(state){
+  return ownerEntries(state).some(e=>e.owner.squad.length >= SQUAD_MAX_TOTAL);
 }
 
 let roleAssigning = false;
@@ -1327,26 +1506,32 @@ function resolveRole(squad, entry, role){
 async function assignRole(playerId, role){
   if(roleAssigning) return;
   const s0 = localState;
-  const me0 = s0 && s0.players[myName];
-  if(!s0 || !me0) return;
-  const entry0 = me0.squad.find(x=>x.id===playerId && x.role===null);
+  const owner0 = s0 && ownerOf(s0, myName);
+  if(!s0 || !owner0) return;
+  const entry0 = owner0.squad.find(x=>x.id===playerId && x.role===null);
   if(!entry0) return;
-  const resolved0 = resolveRole(me0.squad, entry0, role);
+  const resolved0 = resolveRole(owner0.squad, entry0, role);
   if(resolved0===null) return;
 
   // ===== تحديث تفاؤلي فوري: الكارت بينزل مكانه على طول من غير انتظار السيرفر =====
   roleAssigning = true;
-  const newSquad = me0.squad.map(x=> x.id===playerId ? Object.assign({}, x, {role: resolved0}) : x);
-  const newMe = Object.assign({}, me0, {squad: newSquad});
-  localState = Object.assign({}, s0, {players: Object.assign({}, s0.players, {[myName]: newMe})});
+  const newSquad = owner0.squad.map(x=> x.id===playerId ? Object.assign({}, x, {role: resolved0}) : x);
+  if(s0.mode==='team'){
+    const myTeamId = s0.players[myName].teamId;
+    const newTeam = Object.assign({}, owner0, {squad: newSquad});
+    localState = Object.assign({}, s0, {teams: Object.assign({}, s0.teams, {[myTeamId]: newTeam})});
+  } else {
+    const newMe = Object.assign({}, owner0, {squad: newSquad});
+    localState = Object.assign({}, s0, {players: Object.assign({}, s0.players, {[myName]: newMe})});
+  }
   render();
 
   const res = await withRoomLock(roomCode, (state)=>{
-    const me = state.players[myName];
-    if(!me) return {abort:true};
-    const entry = me.squad.find(x=>x.id===playerId && x.role===null);
+    const owner = ownerOf(state, myName);
+    if(!owner) return {abort:true};
+    const entry = owner.squad.find(x=>x.id===playerId && x.role===null);
     if(!entry) return {abort:true};
-    const r = resolveRole(me.squad, entry, role);
+    const r = resolveRole(owner.squad, entry, role);
     if(r===null) return {abort:true, reason:'bench-full'};
     entry.role = r;
     pushLog(state, `<b>${myName}</b> نزّل ${entry.name} ${r==='start'? 'أساسي':'على الدكة'}`);
@@ -1376,21 +1561,22 @@ async function settleTick(){
   let state = claim.state;
   const card = state.currentCard;
   if(state.currentBidder){
-    const buyer = state.players[state.currentBidder];
+    const buyer = ownerOf(state, state.currentBidder);
     buyer.budget -= state.currentBid;
     buyer.squad.push({id:card.id, name:card.name, pos:card.pos, club:card.club, league:card.league, price:state.currentBid, img:card.img, role:null});
-    pushLog(state, `<b>${state.currentBidder}</b> اشترى ${card.name} بـ €${state.currentBid}م`);
+    const buyerLabel = state.mode==='team' ? `<b>${state.currentBidder}</b> لصالح ${state.teams[state.players[state.currentBidder].teamId].name}` : `<b>${state.currentBidder}</b>`;
+    pushLog(state, `${buyerLabel} اشترى ${card.name} بـ €${state.currentBid}م`);
   } else {
     pushLog(state, `${card.name} خرج من المزاد من غير ما حد يشتريه`);
   }
 
   const nextIndex = state.cardIndex + 1;
-  const full = anyFull(state.players);
+  const full = anyFull(state);
   if(nextIndex >= state.cardQueue.length || full){
-    Object.values(state.players).forEach(p=>{
-      p.squad.forEach(x=>{
+    ownerEntries(state).forEach(({owner})=>{
+      owner.squad.forEach(x=>{
         if(x.role===null){
-          const startersInPos = p.squad.filter(y=>y.role==='start' && y.pos===x.pos).length;
+          const startersInPos = owner.squad.filter(y=>y.role==='start' && y.pos===x.pos).length;
           x.role = startersInPos < STARTER_MAX[x.pos] ? 'start' : 'bench';
         }
       });
@@ -1420,16 +1606,16 @@ async function settleTick(){
 
 async function runAIRanking(state){
   try{
-    const squadsSummary = state.playersOrder.map(name=>{
-      const p = state.players[name];
+    const entries = ownerEntries(state);
+    const squadsSummary = entries.map(({id, owner})=>{
       return {
-        managerName: name,
-        remainingBudget: p.budget,
-        totalPlayers: p.squad.length,
-        squad: p.squad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))
+        managerName: ownerDisplayName(state, id),
+        remainingBudget: owner.budget,
+        totalPlayers: owner.squad.length,
+        squad: owner.squad.map(s=>({name:s.name, position:POS_LABEL[s.pos], club:s.club, pricePaid:s.price}))
       };
     });
-    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${state.playersOrder.length} مديرين اشتروها في مزاد لاعبين حقيقيين ومعروفين فعليًا (كل واحد كان معاه 3 مليار يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
+    const prompt = `انت خبير تحليل كرة قدم. تحت تشكيلات ${entries.length} ${state.mode==='team'?'فرق':'مديرين'} اشتروها في مزاد لاعبين حقيقيين ومعروفين فعليًا (كل واحد كان معاه 3 مليار يورو). قيّم كل تشكيلة من ناحية: جودة اللاعبين، التوازن بين الخطوط (حراسة/دفاع/وسط/هجوم)، الكيمياء المحتملة، والقيمة مقابل المصاريف. رتبهم من الأفضل للأضعف.
 
 البيانات:
 ${JSON.stringify(squadsSummary, null, 2)}
@@ -1461,12 +1647,11 @@ ${JSON.stringify(squadsSummary, null, 2)}
   }catch(e){
     console.error('AI ranking failed', e);
     const fallback = {
-      ranking: state.playersOrder.map(name=>{
-        const p = state.players[name];
-        const totalSpent = p.squad.reduce((s,x)=>s+x.price,0);
-        const balance = ["GK","DF","MF","FW"].every(pos=>p.squad.filter(s=>s.pos===pos).length >= (POS_MIN[pos]-2));
+      ranking: ownerEntries(state).map(({id, owner})=>{
+        const totalSpent = owner.squad.reduce((s,x)=>s+x.price,0);
+        const balance = ["GK","DF","MF","FW"].every(pos=>owner.squad.filter(s=>s.pos===pos).length >= (POS_MIN[pos]-2));
         const score = Math.round(totalSpent/4 + (balance?15:0));
-        return {managerName:name, place:0, score, verdict:"تعذر الوصول لنظام التحليل، ده تقييم مبسط بناءً على قيمة التشكيلة."};
+        return {managerName:ownerDisplayName(state,id), place:0, score, verdict:"تعذر الوصول لنظام التحليل، ده تقييم مبسط بناءً على قيمة التشكيلة."};
       }).sort((a,b)=>b.score-a.score).map((r,i)=>({...r, place:i+1})),
       overall: "تعذر الاتصال بخدمة التحليل، فالترتيب ده مبني على إجمالي قيمة اللاعبين اللي اشتراهم كل مدير."
     };
@@ -1487,12 +1672,23 @@ function startPolling(){
   pollTimer = setInterval(async ()=>{
     if(!roomCode) return;
     const s = await getRoom(roomCode);
-    if(s){ checkNewJoins(s); localState = s; render(); }
+    if(s) applyIncomingState(s);
   }, 4000);
   tickTimer = setInterval(()=>{
     settleTick();
     if(localState && localState.phase==='auction') renderTimerOnly();
-  }, 500);
+    if(localState && localState.phase==='lobby' && localState.kickoffAt){
+      renderKickoffOnly();
+      const isHost = localState.players[myName] && localState.players[myName].host;
+      const remaining = kickoffRemaining(localState.kickoffAt);
+      if(isHost && remaining===0 && !kickoffTriggered && !startingAuction){
+        kickoffTriggered = true;
+        startAuction();
+      }
+    } else {
+      kickoffTriggered = false;
+    }
+  }, 300);
 }
 
 /* ============ RENDER ============ */
@@ -1503,6 +1699,7 @@ function esc(s){ return (s||'').replace(/[<>&]/g, c=>({'<':'&lt;','>':'&gt;','&'
 function imgAttrs(src){ return `src="${esc(src||PLACEHOLDER_IMG)}" onerror="this.onerror=null;this.src='${PLACEHOLDER_IMG}';"`; }
 
 function render(){
+  if(aiGame){ renderAIRoot(); return; }
   footerNote.textContent = roomCode ? `غرفة رقم ${roomCode} — لاعبين حقيقيين ومعروفين، وأسعارهم بتتحدد وقت المزاد` : 'مزاد لاعبين كرة قدم حقيقيين — العب مع أصحابك أو لوحدك';  
   document.body.classList.toggle('stage-lobby', !!(localState && localState.phase==='lobby'));
   document.body.classList.toggle('stage-landing', !roomCode);
@@ -1515,39 +1712,97 @@ function render(){
   else if(localState.phase==='results') renderResults();
 }
 
+let landingMode = urlRoom ? 'multi' : 'multi'; // multi | team | ai
 let landingTab = urlRoom ? 'join' : 'create';
+
+const MODE_INFO = {
+  multi:{icon:'👥', title:'أونلاين مع الأصحاب', sub:'مزاد جماعي كلاسيكي — كل واحد بميزانيته وتشكيلته لوحده (2-6 لاعبين).'},
+  team:{icon:'🤝', title:'فرق 2ضد2 / 3ضد3', sub:'قسموا نفسكم فريقين، وكل فريق بيشتري بميزانية وتشكيلة مشتركة.'},
+  ai:{icon:'🤖', title:'لعب فردي ضد الـ AI', sub:'إنت وحدك — تبني تشكيلتك من نفس ميزانية الـ AI، وفي الآخر تقييم ومقارنة.'},
+};
 
 function renderLanding(){
   app.innerHTML = `
     <div class="card">
-      <div class="tabs">
-        <div class="tab ${landingTab==='create'?'active':''}" id="tabCreate">إنشاء غرفة</div>
-        <div class="tab ${landingTab==='join'?'active':''}" id="tabJoin">الانضمام لغرفة</div>
+      <h2>اختار طريقة اللعب</h2>
+      <p class="sub">وبعدين ابدأ أو انضم لغرفة.</p>
+      <div class="mode-grid" id="modeGrid">
+        ${['multi','team','ai'].map(m=>`
+          <div class="mode-opt ${landingMode===m?'active':''}" data-mode="${m}">
+            <div class="mo-ic">${MODE_INFO[m].icon}</div>
+            <div class="mo-txt">
+              <div class="mo-title">${MODE_INFO[m].title}</div>
+              <div class="mo-sub">${MODE_INFO[m].sub}</div>
+            </div>
+            <div class="mo-check"></div>
+          </div>`).join('')}
       </div>
-      <div id="formArea"></div>
+      <div id="landingSub" style="margin-top:16px;"></div>
     </div>
   `;
+  document.querySelectorAll('#modeGrid .mode-opt').forEach(el=>{
+    el.onclick = ()=>{ landingMode = el.getAttribute('data-mode'); render(); };
+  });
+  const sub = document.getElementById('landingSub');
+
+  if(landingMode==='ai'){
+    sub.innerHTML = `
+      <div class="field"><label>اسمك</label><input type="text" id="aiName" placeholder="اكتب اسمك" maxlength="16"></div>
+      <button class="btn btn-emerald" id="aiStartBtn" ${aiStarting?'disabled':''}>${aiStarting? 'بنجهز اللاعبين...' : 'ابدأ ضد الـ AI ⚡'}</button>
+      ${aiStartFailed? `<div class="err">${esc(aiStartFailed)}</div>` : ''}
+    `;
+    document.getElementById('aiStartBtn').onclick = ()=>{
+      const v = document.getElementById('aiName').value.trim() || 'إنت';
+      startAISolo(v);
+    };
+    document.getElementById('aiName').onkeydown = (e)=>{ if(e.key==='Enter') document.getElementById('aiStartBtn').click(); };
+    return;
+  }
+
+  const tabsHTML = `
+    <div class="tabs" style="margin-top:2px;">
+      <div class="tab ${landingTab==='create'?'active':''}" id="tabCreate">إنشاء غرفة</div>
+      <div class="tab ${landingTab==='join'?'active':''}" id="tabJoin">الانضمام لغرفة</div>
+    </div>
+    <div id="formArea"></div>
+  `;
+  sub.innerHTML = tabsHTML;
   document.getElementById('tabCreate').onclick = ()=>{landingTab='create'; render();};
   document.getElementById('tabJoin').onclick = ()=>{landingTab='join'; render();};
   const formArea = document.getElementById('formArea');
+  const isTeam = landingMode==='team';
 
   if(landingTab==='create'){
     formArea.innerHTML = `
-      <h2>ابدأ مزاد جديد</h2>
-      <p class="sub">هتبقى إنت المدير الأول، وبعدين ابعت اللينك لأصحابك (2-6 لاعبين) عشان ينضموا من جهازهم.</p>
+      ${isTeam? `
+      <div class="field">
+        <label>حجم كل فريق</label>
+        <div class="team-pick">
+          <div class="team-pick-card blue ${createTeamSize===2?'active':''}" data-size="2"><div class="tp-name">2 ضد 2</div><div class="tp-members">4 لاعبين إجمالي</div></div>
+          <div class="team-pick-card red ${createTeamSize===3?'active':''}" data-size="3"><div class="tp-name">3 ضد 3</div><div class="tp-members">6 لاعبين إجمالي</div></div>
+        </div>
+      </div>` : ''}
+      <p class="sub">${isTeam? 'هتبقى إنت أول عضو في الفريق الأزرق، وبعدين ابعت اللينك للباقي.' : 'هتبقى إنت المدير الأول، وبعدين ابعت اللينك لأصحابك (2-6 لاعبين) عشان ينضموا من جهازهم.'}</p>
       <div class="field"><label>اسمك</label><input type="text" id="cName" placeholder="اكتب اسمك" maxlength="16"></div>
       <button class="btn btn-gold" id="cBtn" ${creating?'disabled':''}>${creating? 'بنجهز...' : 'إنشاء الغرفة'}</button>
     `;
+    if(isTeam){
+      document.querySelectorAll('#formArea .team-pick-card').forEach(el=>{
+        el.onclick = ()=>{ createTeamSize = Number(el.getAttribute('data-size')); render(); };
+      });
+    }
+    createMode = isTeam ? 'team' : 'classic';
     document.getElementById('cBtn').onclick = ()=>{
       const v = document.getElementById('cName').value.trim();
       if(!v) return;
+      createMode = isTeam ? 'team' : 'classic';
       createRoom(v);
     };
     document.getElementById('cName').onkeydown = (e)=>{ if(e.key==='Enter') document.getElementById('cBtn').click(); };
   } else {
     formArea.innerHTML = `
-      <h2>انضم لغرفة</h2>
-      <p class="sub">اكتب كود الغرفة اللي جالك من صاحبك واسمك عشان تدخل.</p>
+      <h2 style="margin-top:14px;">انضم لغرفة</h2>
+      <p class="sub">اكتب كود الغرفة اللي جالك من صاحبك واسمك عشان تدخل. هتقدر تختار فريقك جوه اللوبي لو الغرفة نوعها فرق.</p>
       <div class="field"><label>كود الغرفة</label><input type="text" id="jCode" placeholder="مثال: 4821" maxlength="4" inputmode="numeric" value="${urlRoom||''}"></div>
       <div class="field"><label>اسمك</label><input type="text" id="jName" placeholder="اكتب اسمك" maxlength="16"></div>
       <button class="btn btn-gold" id="jBtn" ${joining?'disabled':''}>${joining? 'بيدخل...' : 'دخول الغرفة'}</button>
@@ -1585,14 +1840,16 @@ function copyToClipboard(text){
 function renderLobby(){
   const s = localState;
   const isHost = s.players[myName] && s.players[myName].host;
+  const isTeam = s.mode==='team';
   const link = location.origin + location.pathname + '?room=' + s.code;
-  if(kickoffCount!==null){
+  if(s.kickoffAt){
+    const remaining = kickoffRemaining(s.kickoffAt);
     app.innerHTML = `
     <div class="card kickoff-card">
       <div class="kickoff-count-wrap">
-        <div class="kickoff-count ${kickoffCount===0?'go':''}" id="kickoffNum">${kickoffCount===0?'⚽':kickoffCount}</div>
+        <div class="kickoff-count ${remaining===0?'go':''}" id="kickoffNum">${remaining===0?'⚽':remaining}</div>
       </div>
-      <div class="kickoff-title">${kickoffCount===0? 'انطلقنا!' : 'المزاد هيبدأ خلال...'}</div>
+      <div class="kickoff-title" id="kickoffTitle">${remaining===0? 'انطلقنا!' : 'المزاد هيبدأ خلال...'}</div>
       <div class="kickoff-players">${s.playersOrder.length} لاعبين جاهزين في الغرفة</div>
       <div class="kickoff-avatars">
         ${s.playersOrder.map(n=>`<div class="avatar" title="${esc(n)}">${esc(n[0]||'?')}</div>`).join('')}
@@ -1604,12 +1861,30 @@ function renderLobby(){
     app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>${esc(startProgressText)}</div></div>`;
     return;
   }
+  const ready = roomReadyToStart(s);
+  const myTeamId = isTeam ? s.players[myName].teamId : null;
+
   app.innerHTML = `
     <div class="card">
       <h2>غرفة الانتظار</h2>
-      <p class="sub">شارك الكود أو اللينك مع أصحابك. المزاد يبدأ لما يكونوا 2 لاعبين على الأقل.</p>
+      <p class="sub">${isTeam
+        ? `شارك الكود أو اللينك مع أصحابك. اللعب ${s.teamSize}ضد${s.teamSize} — كل فريق لازم يكمل ${s.teamSize} لاعبين.`
+        : 'شارك الكود أو اللينك مع أصحابك. المزاد يبدأ لما يكونوا 2 لاعبين على الأقل.'}</p>
       <div class="room-code-big">${s.code}</div>
       <div class="share-link"><input type="text" readonly value="${link}" id="linkInput"><button class="copy-btn" id="copyBtn">نسخ الرابط</button></div>
+
+      ${isTeam ? `
+      <div class="team-pick">
+        ${['A','B'].map(tid=>{
+          const t = s.teams[tid];
+          const full = t.members.length >= s.teamSize;
+          return `
+          <div class="team-pick-card ${t.cls} ${myTeamId===tid?'active':''} ${full && myTeamId!==tid?'full':''}" data-team="${tid}">
+            <div class="tp-name">${tid==='A'?'🔵':'🔴'} ${esc(t.name)} (${t.members.length}/${s.teamSize})</div>
+            <div class="tp-members">${t.members.length ? t.members.map(n=>esc(n)+(n===myName?' (إنت)':'')).join('<br>') : 'فاضي'}</div>
+          </div>`;
+        }).join('')}
+      </div>` : `
       <div class="players-list">
         ${s.playersOrder.map(n=>`
           <div class="prow">
@@ -1622,11 +1897,12 @@ function renderLobby(){
           <div class="prow" style="opacity:0.4;">
             <div class="avatar">؟</div><div class="name">في انتظار لاعب...</div>
           </div>`).join('')}
-      </div>
+      </div>`}
+
       ${startFailed? `<div class="err">${esc(startFailed)}</div>` : ''}
       ${isHost ? `
-        <button class="btn btn-gold" id="startBtn" ${s.playersOrder.length<2?'disabled':''}>
-          ${s.playersOrder.length<2? 'محتاج لاعب واحد على الأقل كمان' : 'ابدأ المزاد 🚀'}
+        <button class="btn btn-gold" id="startBtn" ${!ready?'disabled':''}>
+          ${ready? 'ابدأ المزاد 🚀' : (isTeam? `في انتظار اكتمال الفريقين (${s.teamSize} لكل فريق)` : 'محتاج لاعب واحد على الأقل كمان')}
         </button>` : `<div class="center-msg" style="padding:14px;">في انتظار المدير الرئيسي يبدأ المزاد...</div>`}
     </div>
   `;
@@ -1636,7 +1912,34 @@ function renderLobby(){
       setTimeout(()=>{ const b=document.getElementById('copyBtn'); if(b) b.textContent='نسخ الرابط'; }, 1500);
     }).catch(()=>{});
   };
-  if(isHost){ document.getElementById('startBtn').onclick = beginKickoff; }
+  if(isTeam){
+    document.querySelectorAll('.team-pick-card').forEach(el=>{
+      el.onclick = ()=> chooseTeam(el.getAttribute('data-team'));
+    });
+  }
+  if(isHost){ document.getElementById('startBtn').onclick = requestKickoff; }
+}
+
+function kickoffRemaining(kickoffAt){
+  const elapsed = Date.now() - kickoffAt;
+  const step = Math.floor(Math.max(0,elapsed)/KICKOFF_STEP_MS);
+  return Math.max(0, KICKOFF_STEPS - step);
+}
+// بيحدّث رقم العداد جوه العنصر الموجود بس (من غير ما يعيد بناء الشاشة كلها)
+// عشان محدش يشوف أي وميض أو فلاش في العدّاد وهو بيتحدّث كل شوية.
+function renderKickoffOnly(){
+  const s = localState;
+  if(!s || !s.kickoffAt) return;
+  const numEl = document.getElementById('kickoffNum');
+  const titleEl = document.getElementById('kickoffTitle');
+  if(!numEl) return;
+  const remaining = kickoffRemaining(s.kickoffAt);
+  const label = remaining===0 ? '⚽' : String(remaining);
+  if(numEl.textContent !== label){
+    numEl.textContent = label;
+    numEl.classList.toggle('go', remaining===0);
+    if(titleEl) titleEl.textContent = remaining===0 ? 'انطلقنا!' : 'المزاد هيبدأ خلال...';
+  }
 }
 
 function timeFrac(){
@@ -1659,19 +1962,35 @@ function renderTimerOnly(){
 
 function renderAuction(){
   const s = localState;
-  const me = s.players[myName];
-  if(!me){ app.innerHTML = `<div class="card"><div class="center-msg">مش لاقيك في الغرفة دي.</div></div>`; return; }
+  const isTeam = s.mode==='team';
+  const myOwner = ownerOf(s, myName);
+  if(!myOwner){ app.innerHTML = `<div class="card"><div class="center-msg">مش لاقيك في الغرفة دي.</div></div>`; return; }
+  const myTeamId = isTeam ? s.players[myName].teamId : null;
   const card = s.currentCard;
   const settling = s.phase === 'settling' || !card;
   const R = 58, C = 2*Math.PI*R;
   const frac = timeFrac();
   const tier = card ? card.tier : 'bronze';
-  const pending = me.squad.find(x=>x.role===null);
-  const blockReason = (!settling && card) ? bidBlockReason(Object.assign({_name:myName}, me), card, s) : null;
+  const pending = myOwner.squad.find(x=>x.role===null);
+  const blockReason = (!settling && card) ? bidBlockReason(Object.assign({_name:myName, _owner:myOwner}, myOwner), card, s) : null;
+  const leaderTeamId = (isTeam && s.currentBidder) ? s.players[s.currentBidder].teamId : null;
+  const leaderLabel = s.currentBidder ? (isTeam
+    ? `${esc(s.teams[leaderTeamId].name)} — ${esc(s.currentBidder)}${leaderTeamId===myTeamId?' (فريقك)':''}`
+    : `${esc(s.currentBidder)}${s.currentBidder===myName?' (إنت)':''}`) : '';
 
   app.innerHTML = `
     <div class="ticker">
-      ${s.playersOrder.map(n=>{
+      ${isTeam ? ['A','B'].map(tid=>{
+        const t = s.teams[tid];
+        return `<div class="tchip ${leaderTeamId===tid?'leading':''}">
+          <div class="tav">${tid==='A'?'🔵':'🔴'}</div>
+          <div class="tinfo">
+            <div class="tn">${esc(t.name)}${tid===myTeamId?' (فريقك)':''}</div>
+            <div class="tb">€${fmtMoney(t.budget)}</div>
+            <div class="tc">${t.members.map(esc).join('، ')} • ${t.squad.length}/${SQUAD_MAX_TOTAL}</div>
+          </div>
+        </div>`;
+      }).join('') : s.playersOrder.map(n=>{
         const p = s.players[n];
         return `<div class="tchip ${s.currentBidder===n?'leading':''} ${p.left?'left':''}">
           <div class="tav">${esc(n[0]||'?')}</div>
@@ -1707,7 +2026,7 @@ function renderAuction(){
             ${card.league? `<span class="dot">•</span>${esc(card.league)}`:''}
           </div>
           <div class="price-row"><span class="euro">€</span><span class="amount num">${s.currentBid}</span><span class="euro">مليون</span></div>
-          <div class="leader ${s.currentBidder?'':'none'}">${s.currentBidder? `أعلى مزايدة: <span class="lname">${esc(s.currentBidder)}${s.currentBidder===myName?' (إنت)':''}</span> — هياخد اللاعب لو محدش زاود خلال ${BID_SECONDS_CLOSING} ثواني` : 'مفيش حد زايد لسه — كن أول واحد'}</div>
+          <div class="leader ${s.currentBidder?'':'none'}">${s.currentBidder? `أعلى مزايدة: <span class="lname">${leaderLabel}</span> — ${isTeam?'هياخده الفريق':'هياخد اللاعب'} لو محدش زاود خلال ${BID_SECONDS_CLOSING} ثواني` : 'مفيش حد زايد لسه — كن أول واحد'}</div>
           ${blockReason ? `<div class="bid-blocked">${esc(blockReason)}</div>` : `
           <div class="bid-actions ${bidding?'is-bidding':''}">
             <button class="btn btn-gold" id="bid1" ${bidding?'disabled':''}>زايد بـ €${incrementFor(s.currentBid)}م</button>
@@ -1719,8 +2038,8 @@ function renderAuction(){
     </div>
 
     <div class="squad-summary">
-      <div class="squad-summary-head"><span>تشكيلتك (<b>${me.squad.length}/${SQUAD_MAX_TOTAL}</b>)</span><span>€${fmtMoney(me.budget)} متبقي</span></div>
-      ${renderPitchHTML(me.squad)}
+      <div class="squad-summary-head"><span>${isTeam?'تشكيلة فريقك':'تشكيلتك'} ${isTeam?`<span class="team-tag">${esc(s.teams[myTeamId].name)}</span>`:''} (<b>${myOwner.squad.length}/${SQUAD_MAX_TOTAL}</b>)</span><span>€${fmtMoney(myOwner.budget)} متبقي</span></div>
+      ${renderPitchHTML(myOwner.squad)}
     </div>
 
     <div class="log">
@@ -1791,15 +2110,46 @@ function attachTilt(){
   el.addEventListener('mouseleave', reset);
 }
 
+let whistlePlayed = false;
+function playWhistleSound(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const now = ctx.currentTime;
+    const o = ctx.createOscillator();
+    const g = ctx.createGain();
+    o.type = 'square';
+    o.frequency.setValueAtTime(2200, now);
+    o.frequency.linearRampToValueAtTime(2600, now+0.12);
+    o.frequency.linearRampToValueAtTime(2200, now+0.24);
+    g.gain.setValueAtTime(0.0001, now);
+    g.gain.linearRampToValueAtTime(0.22, now+0.02);
+    g.gain.setValueAtTime(0.22, now+0.30);
+    g.gain.linearRampToValueAtTime(0.0001, now+0.42);
+    o.connect(g); g.connect(ctx.destination);
+    o.start(now); o.stop(now+0.5);
+    o.onended = ()=>{ try{ ctx.close(); }catch(e){} };
+  }catch(e){ /* المتصفح مش بيدعم الصوت — مش مشكلة */ }
+}
+
 function renderResults(){
   const s = localState;
   if(!s.results){
-    app.innerHTML = `<div class="card"><div class="center-msg"><div class="spinner"></div>بنحلل التشكيلات ونحدد الترتيب النهائي...</div></div>`;
+    if(!whistlePlayed){ whistlePlayed = true; playWhistleSound(); }
+    app.innerHTML = `
+    <div class="card whistle-card">
+      <div class="whistle-icon">🔚</div>
+      <h2>نهاية المزاد!</h2>
+      <p class="sub">تشكيلة أول مدير خلصت — بنحسب النتيجة النهائية ونرتب كل التشكيلات...</p>
+      <div class="spinner"></div>
+    </div>`;
     return;
   }
   const ranking = [...s.results.ranking].sort((a,b)=>a.place-b.place);
   const medals = ['🥇','🥈','🥉','🏅'];
   const winner = ranking[0];
+  const myTeamId = s.mode==='team' ? (s.players[myName] && s.players[myName].teamId) : null;
+  const byLabel = {};
+  ownerEntries(s).forEach(({id, owner})=>{ byLabel[ownerDisplayName(s, id)] = {id, owner}; });
 
   app.innerHTML = `
     <div class="winner-banner">
@@ -1809,16 +2159,17 @@ function renderResults(){
       <p>${esc(s.results.overall||'')}</p>
     </div>
     ${ranking.map((r, i)=>{
-      const p = s.players[r.managerName];
+      const match = byLabel[r.managerName];
+      const isMe = match && (s.mode==='team' ? match.id===myTeamId : match.id===myName);
       return `
       <div class="rank-card ${i===0?'first':''}">
         <div class="rank-head">
           <div class="rank-medal">${medals[i]||'🏅'}</div>
-          <div class="rn">${esc(r.managerName)}${r.managerName===myName?' (إنت)':''}</div>
+          <div class="rn">${esc(r.managerName)}${isMe?' (إنت)':''}</div>
           <div class="rs num">${r.score}/100</div>
         </div>
         <div class="rank-verdict">${esc(r.verdict||'')}</div>
-        ${p ? renderPitchHTML(p.squad) : ''}
+        ${match ? renderPitchHTML(match.owner.squad) : ''}
       </div>`;
     }).join('')}
     <button class="btn btn-ghost" id="newGameBtn" style="margin-top:8px;">لعبة جديدة</button>
